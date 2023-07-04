@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="336"
       Title="ColorPointerView">
 
-    <Grid>
+    <Grid Background="#202020">
         
     </Grid>
 </Page>
