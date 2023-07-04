@@ -1,0 +1,86 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:ColorsPicker">
+
+
+    <Style TargetType="{x:Type local:NavigationButton}">
+
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Cursor" Value="Hand" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:NavigationButton}">
+                    <Border x:Name="back"
+                            Background="Transparent"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="2"
+                            Padding="{TemplateBinding Padding}">
+
+                        <Path x:Name="icon" Data="{TemplateBinding Icon}" Fill="#252525" Stretch="Uniform" Height="18" Width="18" />
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+
+
+                        <!--<MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                                <Condition Property="IsSelected" Value="False"/>
+                            </MultiTrigger.Conditions>
+
+                            <MultiTrigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation 
+                                            Storyboard.TargetName="back"
+                                            Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                            Duration="0:0:0.15" To="#d0ebff"/>
+                                        <ColorAnimation 
+                                            Storyboard.TargetName="icon"
+                                            Storyboard.TargetProperty="(Fill).(SolidColorBrush.Color)"
+                                            Duration="0:0:0.15" To="#2a84f1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.EnterActions>
+
+                            -->
+                        <!--<MultiTrigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ColorAnimation 
+                                            Storyboard.TargetName="back"
+                                            Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                            Duration="0:0:0.15" To="Transparent"/>
+                                        <ColorAnimation 
+                                            Storyboard.TargetName="icon"
+                                            Storyboard.TargetProperty="(Fill).(SolidColorBrush.Color)"
+                                            Duration="0:0:0.15" To="#7b8792"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </MultiTrigger.ExitActions>-->
+                        <!--</MultiTrigger>-->
+
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="back" Property="Background" Value="#252525"/>
+                            <Setter TargetName="icon" Property="Fill" Value="#D8D8D8"/>
+                        </Trigger>
+
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="back" Property="Background" Value="#252525"/>
+                            <Setter TargetName="icon" Property="Fill" Value="#D8D8D8"/>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+</ResourceDictionary>
