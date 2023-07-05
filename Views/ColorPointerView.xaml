@@ -4,11 +4,135 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ColorsPicker.Views"
+      xmlns:VMs="clr-namespace:ColorsPicker.ViewModels"
+      xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="336"
       Title="ColorPointerView">
 
-    <Grid Background="#202020">
-        
+    <Page.DataContext>
+        <VMs:ColorPointerViewModel/>
+    </Page.DataContext>
+    
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/ColorPicker;component/Styles/DefaultColorPickerStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid Background="#202020" >
+        <Grid Background="#202020" Margin="10 10">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" >
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Column="0" Grid.Row="0" Margin="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.8*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Rectangle  Stroke="#8A838A" StrokeThickness="1"
+                    x:Name="rect"  
+                    Fill="{Binding HoverColor}"/>
+
+                    <StackPanel Grid.Row="1">
+                        <TextBox x:Name="ColorHex"
+                        Text="#DEC893" 
+                        Foreground="White"
+                        Margin="0 3 0 2"
+                        Background="Transparent"
+                        BorderThickness="0"/>
+                        <TextBox x:Name="ColorRGB"
+                        Text="#DEC893" 
+                        Foreground="White"
+                        Margin="0 2"
+                        Background="Transparent"
+                        BorderThickness="0"/>
+                        <TextBox x:Name="MousePosition"
+                        Text="#DEC893" 
+                        Foreground="White"
+                        Margin="0 2"
+                        Background="Transparent"
+                        BorderThickness="0"/>
+
+                    </StackPanel>
+
+                </Grid>
+
+                <Border Grid.Column="1" Grid.Row="0" BorderBrush="#8A838A" BorderThickness="1"
+                        Margin="4 2">
+                    <Image x:Name="Image"
+                     Margin="0"
+                     Width="auto"
+                           Source="{Binding BitmapSource}"/>
+
+                </Border>
+
+            </Grid>
+
+
+            <Grid Grid.Row="1" Margin="3 15 3 5" Background="#2F2F2F" >
+
+                <Border Background="Transparent" BorderBrush="#2F2F2F" BorderThickness="1"
+                        CornerRadius="3" HorizontalAlignment="Center" >
+                    <TextBlock Text="Press ALT + X to copy the color HEX"
+                               FontSize="13"
+                               Foreground="White" Margin="2"
+                               Opacity="0.6"
+                               HorizontalAlignment="Center"/>
+                </Border>
+
+                <Border BorderThickness="0 0 0 1"
+                        Grid.Row="0"
+                        BorderBrush="Gray"
+                        Margin="15 30 15 5"
+                        />
+                
+            </Grid>
+            
+            
+            <Grid Grid.Row="2">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.7*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Rectangle Stroke="#8A838A" StrokeThickness="1"
+                    x:Name="rect2"  
+                    Fill="#303030"
+                               Margin="4 3 4 0"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <colorpicker:ColorSliders Style="{StaticResource DefaultColorPickerStyle}"/>
+                </Grid>
+
+            </Grid>
+
+
+        </Grid>
+
     </Grid>
+    
 </Page>

@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:VMs="clr-namespace:ColorsPicker.ViewModels"
       xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
-      xmlns:prism="http://prismlibrary.com/" xmlns:behave="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:behave="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="335"
       Title="PaintPage"
