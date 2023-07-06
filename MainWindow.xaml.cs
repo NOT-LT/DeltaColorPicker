@@ -20,28 +20,32 @@ namespace ColorsPicker
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
+            ColorEyedropperPageButton.IsSelected = true;
         }
 
-        private void PaintPageButton_Selected(object sender, RoutedEventArgs e)
+        private void ColorEyedropperPageButton_Selected(object sender, RoutedEventArgs e)
         {
             var btn = (NavigationButton)sender;
             NavFrame.Navigate(btn?.NavigationLink);
         }
 
-        private void PointerColorButton_Selected(object sender, RoutedEventArgs e)
+        private void ColorPickerPageButton_Selected(object sender, RoutedEventArgs e)
         {
             var btn = (NavigationButton)sender;
             NavFrame.Navigate(btn?.NavigationLink);
         }
+
 
         private void ColorsHistoryButton_Selected(object sender, RoutedEventArgs e)
         {
             var btn = (NavigationButton)sender;
             NavFrame.Navigate(btn?.NavigationLink);
         }
+
     }
 
 }

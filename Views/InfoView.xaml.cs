@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ColorsPicker.Views
 {
     /// <summary>
-    /// Interaction logic for ColorPointerView.xaml
+    /// Interaction logic for InfoView.xaml
     /// </summary>
-    public partial class ColorPointerView : Page
+    public partial class InfoView : Page
     {
-        public ColorPointerView()
+        public InfoView()
         {
             InitializeComponent();
         }

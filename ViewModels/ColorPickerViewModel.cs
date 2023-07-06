@@ -13,7 +13,7 @@ using System.Windows.Media;
 
 namespace ColorsPicker.ViewModels
 {
-    class SetColorViewModel : ObservableObject
+    class ColorPickerViewModel : ObservableObject
     {
 
         public RelayCommand HexColorCopyCommand { get; set; }
@@ -63,30 +63,30 @@ namespace ColorsPicker.ViewModels
         private string _HexValue;
         public string HEXValue
         {
-            get { return string.Format("{0:X2}{1:X2}{2:X2}", RedValue, GreenValue, BlueValue);}
+            get { return string.Format("#{0:X2}{1:X2}{2:X2}", RedValue, GreenValue, BlueValue);}
             set { _HexValue = value; OnPropertyChanged(nameof(HEXValue)); }
         }
 
 
-        public SetColorViewModel()
+        public ColorPickerViewModel()
         {
 
-            CurrentColor = new SavedColor( ColorsDB.CurrentColor.Color, ColorsDB.CurrentColor.RGB, ColorsDB.CurrentColor.HEX, ColorsDB.CurrentColor.SavingDateTime);
-            //CurrentColor = ColorsDB.GetAll()?.LastOrDefault<SavedColor>() ?? new SavedColor(Color.FromRgb(0,0,0), "", "", DateTime.Now);            //RedValue = 0;
+            CurrentColor = new SavedColor( ColorsDB.CurrentColorSet.Color, ColorsDB.CurrentColorSet.RGB, ColorsDB.CurrentColorSet.HEX, ColorsDB.CurrentColorSet.SavingDateTime);
+            //CurrentColorSet = ColorsDB.GetAll()?.LastOrDefault<SavedColor>() ?? new SavedColor(Color.FromRgb(0,0,0), "", "", DateTime.Now);            //RedValue = 0;
             ////GreenValue = 0;
             ////BlueValue = 0;
             HexColorCopyCommand = new RelayCommand(() =>
             {
-                ColorsDB.Add(CurrentColor);
-                ColorsDB.CurrentColor = new SavedColor(CurrentColor.Color, CurrentColor.RGB, CurrentColor.HEX, CurrentColor.SavingDateTime);
+                ColorsDB.AddColor_Set(CurrentColor);
+                ColorsDB.CurrentColorSet = new SavedColor(CurrentColor.Color, CurrentColor.RGB, CurrentColor.HEX, CurrentColor.SavingDateTime);
                 Clipboard.SetText(HEXValue);
             });
 
             RGBColorCopyCommand = new RelayCommand(() =>
             {
                 Clipboard.SetText(RGBValue);
-                ColorsDB.CurrentColor = new SavedColor(CurrentColor.Color, CurrentColor.RGB, CurrentColor.HEX, CurrentColor.SavingDateTime);
-                ColorsDB.Add(CurrentColor);
+                ColorsDB.CurrentColorSet = new SavedColor(CurrentColor.Color, CurrentColor.RGB, CurrentColor.HEX, CurrentColor.SavingDateTime);
+                ColorsDB.AddColor_Set(CurrentColor);
             });
         }
 

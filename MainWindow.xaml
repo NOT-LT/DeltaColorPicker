@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ColorsPicker"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="375" SnapsToDevicePixels="True"
-        MinWidth="360">
+        MinWidth="360" >
 
 
     <Grid Background="#D7D7D7">
@@ -22,8 +22,8 @@
                  BorderThickness="0"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
-            <local:NavigationButton x:Name="ColorPointerPageButton"
-                                    NavigationLink="pack://application:,,,/Views/ColorPointerView.xaml"
+            <local:NavigationButton x:Name="ColorEyedropperPageButton"
+                                    NavigationLink="pack://application:,,,/Views/ColorEyedropperView.xaml"
                                     Margin="3"
                                     Padding="5"
                                     Icon="M143 202 c-18 -9 -33 -22 -33 -28 0 -6 -12 -21 -26 -35 -34 -32 -64
@@ -31,12 +31,12 @@
 42 6 55 -15 19 -26 18 -67 -3z m53 -13 c10 -17 -23 -46 -38 -31 -8 8 -8 15 2
 27 15 18 26 19 36 4z m-50 -50 c7 -12 -54 -79 -73 -79 -22 0 -15 22 19 57 34
 35 43 39 54 22z"
-                                    Selected="PointerColorButton_Selected"/>
+                                    Selected="ColorEyedropperPageButton_Selected"/>
 
 
 
-            <local:NavigationButton x:Name="PaintPageButton"
-                                    NavigationLink="pack://application:,,,/Views/SetColorView.xaml"
+            <local:NavigationButton x:Name="ColorPickerPageButton"
+                                    NavigationLink="pack://application:,,,/Views/ColorPickerView.xaml"
                                     Margin="3"
                                     Padding="5"
                                     
@@ -67,7 +67,7 @@ l-39 18 0 365 c0 346 1 364 18 351 94 -74 261 -228 420 -389 l192 -195 -142
 -534 531 -727 689 l-77 64 -3 366 -4 367 -26 80 c-84 249 -301 441 -583 515
 -105 28 -301 35 -405 15z m986 -2576 c33 -31 41 -84 19 -124 -49 -93 -196 -62
 -195 42 1 74 46 117 113 109 22 -2 50 -14 63 -27"
-                                    Selected="PaintPageButton_Selected"/>
+                                    Selected="ColorPickerPageButton_Selected"/>
 
             <local:NavigationButton x:Name="ColorsHistoryButton"
                                     NavigationLink="pack://application:,,,/Views/ColorsHistoryView.xaml"
