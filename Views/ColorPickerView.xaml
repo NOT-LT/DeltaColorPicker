@@ -1,4 +1,4 @@
-﻿<Page x:Class="ColorsPicker.Views.SetColorView"
+﻿<Page x:Class="ColorsPicker.Views.ColorPickerView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -9,7 +9,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="335"
       Title="PaintPage"
-      d:DataContext="{d:DesignInstance VMs:SetColorViewModel, IsDesignTimeCreatable=False}"
+      d:DataContext="{d:DesignInstance VMs:ColorPickerViewModel, IsDesignTimeCreatable=False}"
       >
 
     <Page.Resources>
@@ -21,7 +21,7 @@
     </Page.Resources>
     
     <Page.DataContext>
-        <VMs:SetColorViewModel/>
+        <VMs:ColorPickerViewModel/>
     </Page.DataContext>
     
     <Grid Background="#202020">

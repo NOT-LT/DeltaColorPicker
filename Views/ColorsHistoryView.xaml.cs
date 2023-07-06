@@ -20,9 +20,9 @@ namespace ColorsPicker.Views
     /// <summary>
     /// Interaction logic for PointerColorView.xaml
     /// </summary>
-    public partial class PointerColorView : Page
+    public partial class ColorsHistoryView : Page
     {
-        public PointerColorView()
+        public ColorsHistoryView()
         {
             InitializeComponent();
         }

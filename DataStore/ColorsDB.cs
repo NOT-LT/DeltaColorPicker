@@ -11,14 +11,23 @@ namespace ColorsPicker.DataStore
 {
     public static class ColorsDB
     {
-        private static List<SavedColor> AllColors = new List<SavedColor>();
-        public static SavedColor CurrentColor = new SavedColor(Color.FromRgb(0,0,0), "","",DateTime.Now);
 
-        public static void Add(SavedColor savedColor)
+
+        private static List<SavedColor> AllColors = new List<SavedColor>();
+        public static SavedColor CurrentColorSet = new SavedColor(Color.FromRgb(0,0,0), "","",DateTime.Now);
+        public static SavedColor CurrentColorSelect = new SavedColor(Color.FromRgb(0, 0, 0), "", "", DateTime.Now);
+
+        public static void AddColor_Set(SavedColor savedColor)
         { 
-                CurrentColor = new SavedColor(savedColor.Color, savedColor.RGB, savedColor.HEX, savedColor.SavingDateTime);
-                AllColors.Add(CurrentColor);
+                CurrentColorSet = new SavedColor(savedColor.Color, savedColor.RGB, savedColor.HEX, savedColor.SavingDateTime);
+            AllColors.Add(CurrentColorSet);
                 ColorsListChanged?.Invoke();
+        }
+        public static void AddColor_Select(SavedColor savedColor)
+        {
+            CurrentColorSelect = new SavedColor(savedColor.Color, savedColor.RGB, savedColor.HEX, savedColor.SavingDateTime);
+            AllColors.Add(CurrentColorSelect);
+            ColorsListChanged?.Invoke();
         }
 
         public static void Delete(SavedColor savedColor)

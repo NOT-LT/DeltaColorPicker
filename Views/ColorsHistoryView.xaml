@@ -1,4 +1,4 @@
-﻿<Page x:Class="ColorsPicker.Views.PointerColorView"
+﻿<Page x:Class="ColorsPicker.Views.ColorsHistoryView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -14,6 +14,7 @@
         <Converters:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter"/>
         <Converters:ColorToHexConverter x:Key="ColorToHexConverter"/>
         <Converters:ColorToRGBConverter x:Key="ColorToRGBConverter"/>
+        <Converters:ListToListReversedConverter x:Key="ListToListReversedConverter"/>
 
         <Style  TargetType="{x:Type ScrollViewer}">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -91,7 +92,7 @@
 
             <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Center">
                 <StackPanel Margin="5" VerticalAlignment="Stretch" HorizontalAlignment="Center" >
-                    <ItemsControl x:Name="ListViewColors" ItemsSource="{Binding AllSavedColors}">
+                    <ItemsControl x:Name="ListViewColors" ItemsSource="{Binding AllSavedColors, Converter={StaticResource ListToListReversedConverter}}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border CornerRadius="5"
@@ -112,11 +113,10 @@
                                             </Grid.RowDefinitions>
                                             <TextBlock SnapsToDevicePixels="True" x:Name="HEXTxt"
                                                        Grid.Row="0" Text="{Binding Color, Converter={StaticResource ColorToHexConverter}}" 
-                                                       Tag="{Binding Color, Converter={StaticResource ColorToHexConverter}}"
                                                        Foreground="White"
                                                        Margin="0"
                                                        Padding="0"
-                                                       Cursor="IBeam"               
+                                                       Cursor="Hand"               
                                                        VerticalAlignment="Center"
                                                        HorizontalAlignment="Center"
                                                       TextAlignment="Center">

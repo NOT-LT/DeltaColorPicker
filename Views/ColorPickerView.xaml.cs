@@ -17,9 +17,9 @@ using System.Windows.Shapes;
 namespace ColorsPicker.Views
 {
 
-    public partial class SetColorView : Page
+    public partial class ColorPickerView : Page
     {
-        public SetColorView()
+        public ColorPickerView()
         {      
             InitializeComponent();
         }

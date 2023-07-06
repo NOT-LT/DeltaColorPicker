@@ -1,27 +1,40 @@
-﻿<Page x:Class="ColorsPicker.Views.ColorPointerView"
+﻿<Page x:Class="ColorsPicker.Views.ColorEyedropperView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ColorsPicker.Views"
       xmlns:VMs="clr-namespace:ColorsPicker.ViewModels"
+      xmlns:Converter="clr-namespace:ColorsPicker.Converters"
+      xmlns:behave="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
+      xmlns:Converters="clr-namespace:ColorsPicker.Converters"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="336"
-      Title="ColorPointerView">
+      Title="ColorPointerView" >
 
-    <Page.DataContext>
-        <VMs:ColorPointerViewModel/>
-    </Page.DataContext>
-    
     <Page.Resources>
         <ResourceDictionary>
+            <Converters:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter"/>
+            <Converters:W32MouseToString x:Key="W32MouseToString"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/ColorPicker;component/Styles/DefaultColorPickerStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
 
+    <!-- https://stackoverflow.com/questions/32669964/where-to-put-events-when-using-mvvm -->
+    <behave:Interaction.Triggers>
+        <behave:EventTrigger EventName="KeyDown">
+            <behave:InvokeCommandAction Command="{Binding KeyDownCommand}" PassEventArgsToCommand="True"/>
+        </behave:EventTrigger>
+    </behave:Interaction.Triggers>
+
+    <Page.DataContext>
+        <VMs:ColorEyedropperViewModel/>
+    </Page.DataContext>
+    
+    
     <Grid Background="#202020" >
         <Grid Background="#202020" Margin="10 10">
             
@@ -34,7 +47,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0" >
+            <Grid Grid.Row="0"  >
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -45,7 +58,7 @@
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Column="0" Grid.Row="0" Margin="2">
+                <Grid Grid.Column="0" Grid.Row="0" Margin="2"  >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.8*"/>
                         <RowDefinition Height="*"/>
@@ -53,23 +66,23 @@
 
                     <Rectangle  Stroke="#8A838A" StrokeThickness="1"
                     x:Name="rect"  
-                    Fill="{Binding HoverColor}"/>
+                    Fill="{Binding SavedColor.Color, Mode=TwoWay, Converter={StaticResource ColorToSolidColorBrushConverter}}"  />
 
                     <StackPanel Grid.Row="1">
                         <TextBox x:Name="ColorHex"
-                        Text="#DEC893" 
+                        Text="{Binding SavedColor.HEX}" 
                         Foreground="White"
                         Margin="0 3 0 2"
                         Background="Transparent"
                         BorderThickness="0"/>
                         <TextBox x:Name="ColorRGB"
-                        Text="#DEC893" 
+                        Text="{Binding SavedColor.RGB}" 
                         Foreground="White"
                         Margin="0 2"
                         Background="Transparent"
                         BorderThickness="0"/>
                         <TextBox x:Name="MousePosition"
-                        Text="#DEC893" 
+                        Text="{Binding W32Mouse_, Converter={StaticResource W32MouseToString}}" 
                         Foreground="White"
                         Margin="0 2"
                         Background="Transparent"
@@ -84,7 +97,7 @@
                     <Image x:Name="Image"
                      Margin="0"
                      Width="auto"
-                           Source="{Binding BitmapSource}"/>
+                           Source="{Binding BitmapSource}"   Focusable="True"/>
 
                 </Border>
 
@@ -121,11 +134,11 @@
                 <Grid Grid.Row="0">
                     <Rectangle Stroke="#8A838A" StrokeThickness="1"
                     x:Name="rect2"  
-                    Fill="#303030"
+                    Fill="{Binding SelectedColor.Color, Converter={StaticResource ColorToSolidColorBrushConverter}}"
                                Margin="4 3 4 0"/>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <colorpicker:ColorSliders Style="{StaticResource DefaultColorPickerStyle}"/>
+                    <colorpicker:ColorSliders Style="{StaticResource DefaultColorPickerStyle}" SelectedColor="{Binding SelectedColor.Color, Mode=TwoWay}"/>
                 </Grid>
 
             </Grid>
