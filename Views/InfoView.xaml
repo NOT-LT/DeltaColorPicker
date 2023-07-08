@@ -1,14 +1,86 @@
-﻿<Page x:Class="ColorsPicker.Views.InfoView"
+﻿<Page x:Class="DeltaColorsPicker.Views.InfoView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:ColorsPicker.Views"
+      xmlns:local="clr-namespace:DeltaColorsPicker.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="336"
       Title="InfoView">
 
-    <Grid>
-        
+    <Page.Resources>
+       
+    </Page.Resources>
+
+    <Grid Background="#202020">
+        <StackPanel>
+            
+
+            <Path x:Name="GithubProjectPageIcon"
+                  Fill="#FFFFFF" Data="M48.854,0C21.839,0,0,22,0,49.217c0,21.756,13.993,40.172,33.405,46.69c2.427,0.49,3.316,-1.059,3.316,-2.362c0,-1.141,-0.08,-5.052,-0.08,-9.127c-13.59,2.934,-16.42,-5.867,-16.42,-5.867c-2.184,-5.704,-5.42,-7.17,-5.42,-7.17c-4.448,-3.015,0.324,-3.015,0.324,-3.015c4.934,0.326,7.523,5.052,7.523,5.052c4.367,7.496,11.404,5.378,14.235,4.074c0.404,-3.178,1.699,-5.378,3.074,-6.6c-10.839,-1.141,-22.243,-5.378,-22.243,-24.283c0,-5.378,1.94,-9.778,5.014,-13.2c-0.485,-1.222,-2.184,-6.275,0.486,-13.038c0,0,4.125,-1.304,13.426,5.052c4.077,-3.422,8.282,-4.993,12.213,-4.993c3.934,0,8.139,1.571,12.214,4.993c9.302,-6.356,13.427,-5.052,13.427,-5.052c2.67,6.763,0.97,11.816,0.485,13.038c3.155,3.422,5.015,7.822,5.015,13.2c0,18.905,-11.404,23.06,-22.324,24.283c1.78,1.548,3.316,4.481,3.316,9.126c0,6.6,-0.08,11.897,-0.08,13.526c0,1.304,0.89,2.853,3.316,2.364c19.412,-6.52,33.405,-24.935,33.405,-46.691C97.707,22,75.788,0,48.854,0z"
+                  HorizontalAlignment="Center" Margin="0 10 0 10"
+                  MouseDown="GithubProjectPageIcon_MouseDown"
+                  />
+
+
+
+                <TextBlock Text="Delta ColorPicker"
+               FontWeight="Bold"
+               FontSize="25"
+               Foreground="#FFFFFF"
+               Opacity="0.8"
+               TextAlignment="Center"/>
+
+                <TextBlock Text="Version 1.0.0"
+               Margin="0,0,0,15"
+               FontSize="16"
+               Foreground="#FFFFFF"
+               Opacity="0.7"
+               TextAlignment="Center"/>
+
+                <TextBlock Text="ABOUT"
+               FontWeight="Medium"
+               Margin="5,0,0,3"
+               FontSize="18"
+               Foreground="#FFFFFF"
+               Opacity="0.8"
+               TextAlignment="Left"/>
+
+                <TextBlock TextWrapping="Wrap"
+               TextAlignment="Left"
+               Margin="5,0,0,15"
+               FontSize="15"
+               Foreground="#FFFFFF"
+               Opacity="0.8">
+        Delta ColorPicker is an open-source project developed by Taha Aljamri.
+                    <LineBreak/>
+                    View the application's source code on GitHub.
+                </TextBlock>
+
+
+
+
+                    <TextBlock Text="CONTACT"
+               FontWeight="Medium"
+               Margin="5,0,0,3"
+               FontSize="18"
+               Foreground="#FFFFFF"
+               Opacity="0.8"
+               TextAlignment="Left"/>
+                <DockPanel HorizontalAlignment="Left" Margin="5 4 0 0" Background="Transparent">
+                    <Image x:Name="GithubIcon" Source="\Assets\Images\github-mark-white.png" Width="25" Margin="1 0" MouseDown="GithubIcon_MouseDown" Cursor="Hand"/>
+                <Image x:Name="IGIcon" Source="\Assets\Images\instagram.png" Width="28" Margin="7 0" MouseDown="IGIcon_MouseDown" Cursor="Hand"/>
+                <Image x:Name="TwitterIcon" Source="\Assets\Images\twitter.png" Width="25" Margin="1 0" MouseDown="TwitterIcon_MouseDown" Cursor="Hand"/>
+
+                </DockPanel>
+
+
+            <Image x:Name="CoffeeIcon" Source="\Assets\Images\coffee.png" Width="160" Margin="0 15 0 5" MouseDown="CoffeeIcon_MouseDown" Cursor="Hand"/>
+            </StackPanel>
+
+            
+
+
     </Grid>
+
 </Page>

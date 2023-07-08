@@ -2,35 +2,26 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using static DeltaColorsPicker.ViewModels.ColorEyedropperViewModel;
 
 namespace DeltaColorsPicker.Converters
 {
-    class W32MouseToString : IValueConverter
+    public class HalfValueConverter : IValueConverter
     {
-       
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is Win32Point win32Point)
+            if (value is double doubleValue)
             {
-                return $"[{win32Point.X.ToString()},{win32Point.Y.ToString()}]";
+                return doubleValue / 2;
             }
-            else
-            {
-                return "";
-            }
-
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return "";
+            throw new NotImplementedException();
         }
     }
-
 }

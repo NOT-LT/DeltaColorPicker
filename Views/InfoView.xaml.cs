@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ColorsPicker.Views
+namespace DeltaColorsPicker.Views
 {
     /// <summary>
     /// Interaction logic for InfoView.xaml
@@ -23,6 +24,31 @@ namespace ColorsPicker.Views
         public InfoView()
         {
             InitializeComponent();
+        }
+
+        private void GithubIcon_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo() { UseShellExecute = true, FileName = "https://github.com/NOT-LT" }); ;
+        }
+
+        private void IGIcon_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo() { UseShellExecute = true, FileName = "https://instagram.com/zdlk" }); ;
+        }
+
+        private void TwitterIcon_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo() { UseShellExecute = true, FileName = "https://twitter.com/zdllk" }); ;
+        }
+
+        private void CoffeeIcon_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo() { UseShellExecute = true, FileName = "https://buymeacoffee.com/taljamri" }); ;
+        }
+
+        private void GithubProjectPageIcon_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo() { UseShellExecute = true, FileName= "https://github.com/NOT-LT/DeltaColorPicker" });
         }
     }
 }

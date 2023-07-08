@@ -1,4 +1,4 @@
-﻿using ColorsPicker.Models;
+﻿using DeltaColorsPicker.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace ColorsPicker.Converters
+namespace DeltaColorsPicker.Converters
 {
     class ListToListReversedConverter : IValueConverter
     {
@@ -21,7 +21,8 @@ namespace ColorsPicker.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return "";
+            ObservableCollection<SavedColor> AllColorsList = (ObservableCollection<SavedColor>)value;
+            return AllColorsList.Reverse();
         }
     }
 
