@@ -1,8 +1,8 @@
-﻿<Application x:Class="ColorsPicker.App"
+﻿<Application x:Class="DeltaColorsPicker.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:ColorsPicker"
-             xmlns:VMs="clr-namespace:ColorsPicker.ViewModels"
+             xmlns:local="clr-namespace:DeltaColorsPicker"
+             xmlns:VMs="clr-namespace:DeltaColorsPicker.ViewModels"
              StartupUri="MainWindow.xaml">
 
 
@@ -12,6 +12,37 @@
         <VMs:ColorsHistoryViewModel x:Key="ColorsHistoryViewModel" x:Name="ColorsHistoryViewModel"/>
         <VMs:ColorPointerViewModel x:Key="ColorPointerViewModel" x:Name="ColorPointerViewModel"/>-->
 
+
+        <Style TargetType="Button" x:Key="ImageButton">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="9" />
+            <Setter Property="Cursor"  Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+
+                        <Grid>
+                            <Border x:Name="border"
+                                
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}"
+                                Margin="{TemplateBinding Margin}"
+                                CornerRadius="5">
+                                <ContentPresenter x:Name="BtnText" HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+
+                            </Border>
+                        </Grid>
+                        
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
         <Style TargetType="Button" x:Key="HexPrimaryDarkButton">
             <Setter Property="Background" Value="#252525" />
             <Setter Property="Foreground" Value="White" />

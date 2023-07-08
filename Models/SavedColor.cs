@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ColorsPicker.Models
+namespace DeltaColorsPicker.Models
 {
     public class SavedColor
     {

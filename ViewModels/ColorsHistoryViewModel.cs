@@ -1,5 +1,5 @@
-﻿using ColorsPicker.DataStore;
-using ColorsPicker.Models;
+﻿using DeltaColorsPicker.DataStore;
+using DeltaColorsPicker.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ColorsPicker.ViewModels
+namespace DeltaColorsPicker.ViewModels
 {
     class ColorsHistoryViewModel : ObservableObject
     {
@@ -31,9 +31,21 @@ namespace ColorsPicker.ViewModels
 			ColorsDB.ColorsListChanged += ColorsDB_NewColorAdded;
 		}
 
+        public void Dispose()
+        {
+            ColorsDB.ColorsListChanged -= ColorsDB_NewColorAdded;
+        }
+
+        public void Update()
+		{
+            AllSavedColors = new ObservableCollection<SavedColor>();
+            ColorsDB.GetAll().ForEach(color => AllSavedColors.Add(color));
+        }
+
         private void ColorsDB_NewColorAdded()
 		{
-            ColorsDB.GetAll().ForEach(color => AllSavedColors.Add(color));
+			ColorsDB.GetAll().ForEach(color => AllSavedColors.Add(color)); ;
+			//Dispose();
         }
 
     }

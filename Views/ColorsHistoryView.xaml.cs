@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Threading;
 
-namespace ColorsPicker.Views
+namespace DeltaColorsPicker.Views
 {
     /// <summary>
     /// Interaction logic for PointerColorView.xaml

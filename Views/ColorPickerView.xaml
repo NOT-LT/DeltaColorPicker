@@ -1,13 +1,13 @@
-﻿<Page x:Class="ColorsPicker.Views.ColorPickerView"
+﻿<Page x:Class="DeltaColorsPicker.Views.ColorPickerView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:VMs="clr-namespace:ColorsPicker.ViewModels"
+      xmlns:VMs="clr-namespace:DeltaColorsPicker.ViewModels"
       xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
       xmlns:behave="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="335"
+      d:DesignHeight="450" d:DesignWidth="336"
       Title="PaintPage"
       d:DataContext="{d:DesignInstance VMs:ColorPickerViewModel, IsDesignTimeCreatable=False}"
       >
@@ -20,9 +20,7 @@
         </ResourceDictionary>
     </Page.Resources>
     
-    <Page.DataContext>
-        <VMs:ColorPickerViewModel/>
-    </Page.DataContext>
+  
     
     <Grid Background="#202020">
 
