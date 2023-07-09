@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:DeltaColorsPicker"
         mc:Ignorable="d"
         Title="Delta ColorPicker" Height="450" Width="375" SnapsToDevicePixels="True"
-        MinWidth="360" >
+        MinWidth="360" MinHeight="450" >
 
 
     <Grid Background="White">

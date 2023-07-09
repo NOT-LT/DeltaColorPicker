@@ -84,9 +84,9 @@ namespace DeltaColorsPicker.ViewModels
 
             RGBColorCopyCommand = new RelayCommand(() =>
             {
-                Clipboard.SetText(RGBValue);
-                ColorsDB.CurrentColorSet = new SavedColor(CurrentColor.Color, CurrentColor.RGB, CurrentColor.HEX, CurrentColor.SavingDateTime);
                 ColorsDB.AddColor_Set(CurrentColor);
+                ColorsDB.CurrentColorSet = new SavedColor(CurrentColor.Color, CurrentColor.RGB, CurrentColor.HEX, CurrentColor.SavingDateTime);
+                Clipboard.SetText(HEXValue);
             });
         }
 

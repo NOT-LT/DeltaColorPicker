@@ -41,6 +41,16 @@ namespace DeltaColorsPicker.DataStore
             return AllColors;
         }
 
+        public static StringBuilder GetAll_Hex_RGB()
+        {
+            StringBuilder result = new StringBuilder();
+            foreach (var color in AllColors)
+            {
+                result.AppendLine ($"{color.HEX}-{color.RGB}");
+            }
+            return result;
+        }
+
         public static event Action ColorsListChanged;
 
 

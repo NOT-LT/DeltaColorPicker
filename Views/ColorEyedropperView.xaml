@@ -71,18 +71,21 @@
 
                     <StackPanel Grid.Row="1" Margin="8 0 0 0">
                         <TextBox x:Name="ColorHex"
+                         IsReadOnly="True"
                         Text="{Binding SavedColor.HEX}" 
                         Foreground="White"
                         Margin="0 3 0 2"
                         Background="Transparent"
                         BorderThickness="0"/>
                         <TextBox x:Name="ColorRGB"
+                        IsReadOnly="True"
                         Text="{Binding SavedColor.RGB}" 
                         Foreground="White"
                         Margin="0 2"
                         Background="Transparent"
                         BorderThickness="0"/>
                         <TextBox x:Name="MousePosition"
+                        IsReadOnly="True"
                         Text="{Binding W32Mouse_, Converter={StaticResource W32MouseToString}}" 
                         Foreground="White"
                         Margin="0 2"

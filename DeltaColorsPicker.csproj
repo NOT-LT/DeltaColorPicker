@@ -8,6 +8,7 @@
     <StartupObject>DeltaColorsPicker.App</StartupObject>
     <AssemblyName>DeltaColorsPicker</AssemblyName>
     <RootNamespace>DeltaColorsPicker</RootNamespace>
+    <ApplicationIcon>DeltaColorPickerLogo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,7 +21,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
+    <Content Include="DeltaColorPickerLogo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
     <PackageReference Include="PixiEditor.ColorPicker" Version="3.3.1" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   </ItemGroup>
