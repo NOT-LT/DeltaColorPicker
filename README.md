@@ -13,6 +13,7 @@ To install DeltaColorPicker, simply follow these steps:
 1. Go the latest release on GitHub.
 2. Click on on "DeltaColorsPicker.exe" to install it.
 3. Run the "DeltaColorPicker.exe" file to start the application.
+###### A warning may pop up, because the app is not signed with a certificate. Click on "More info" --> "Run anyway". Nothing to worry about, you can view the source code :)
 
 ## Usage
 To use DeltaColorPicker, follow these simple steps:
