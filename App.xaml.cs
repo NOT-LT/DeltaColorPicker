@@ -18,9 +18,7 @@ namespace DeltaColorsPicker
     public partial class App : Application
     {
 
-
-
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
 
             base.OnStartup(e);
@@ -28,27 +26,31 @@ namespace DeltaColorsPicker
             // Load the application resources
             InitializeComponent();
 
-            base.OnStartup(e);
-            try
-            {
-                if (!File.Exists("AllSavedColors.txt"))
-                {
-                    File.WriteAllLines("AllSavedColors.txt", new string[] {""});
-                }
-                var SavedColorstxt = File.ReadAllLines("AllSavedColors.txt");
-                foreach (var line in SavedColorstxt)
-                {
-                    //var HEX = line.Split("-")[0];
-                    //var RGB = line.Split("-")[1];
-                    Color color = (Color)ColorConverter.ConvertFromString(line.Split("-")[0]);
+            ////await Task.Run(() =>
+            ////{
+            ////    try
+            ////    {
+            ////        if (!File.Exists("AllSavedColors.txt"))
+            ////        {
+            ////            File.WriteAllLines("AllSavedColors.txt", new string[] { "" });
+            ////        }
+            ////        var SavedColorstxt = File.ReadAllLines("AllSavedColors.txt");
+            ////        foreach (var line in SavedColorstxt)
+            ////        {
+            ////            //var HEX = line.Split("-")[0];
+            ////            //var RGB = line.Split("-")[1];
+            ////            Color color = (Color)ColorConverter.ConvertFromString(line.Split("-")[0]);
+            ////            ColorsDB.AddColor_Set(new SavedColor(color, line.Split("-")[1], line.Split("-")[0]));
+            ////        }
 
-                    ColorsDB.AddColor_Set(new SavedColor(color, line.Split("-")[1], line.Split("-")[0], DateTime.Now));
-                }
+            ////    }
+            ////    catch (Exception) { }
 
-            }
-            catch (Exception) { }
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
+            ////});
+          
+            
+            //MainWindow window = new MainWindow();
+            new MainWindow().Show();
 
         }
 
@@ -58,7 +60,7 @@ namespace DeltaColorsPicker
             {
                 System.IO.File.WriteAllText("AllSavedColors.txt", ColorsDB.GetAll_Hex_RGB().ToString());
             }
-            catch (Exception) {}
+            catch (Exception) { }
 
             base.OnExit(e);
         }

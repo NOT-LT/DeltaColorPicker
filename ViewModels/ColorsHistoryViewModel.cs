@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.IO;
 
 namespace DeltaColorsPicker.ViewModels
 {
@@ -44,7 +45,7 @@ namespace DeltaColorsPicker.ViewModels
 
         private void ColorsDB_NewColorAdded()
 		{
-			ColorsDB.GetAll().ForEach(color => AllSavedColors.Add(color)); ;
+			ColorsDB.GetAll().ForEach(color => AllSavedColors.Add(color));
 			//Dispose();
         }
 

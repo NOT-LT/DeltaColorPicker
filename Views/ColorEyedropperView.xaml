@@ -5,13 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DeltaColorsPicker.Views"
       xmlns:VMs="clr-namespace:DeltaColorsPicker.ViewModels"
-      xmlns:Converter="clr-namespace:DeltaColorsPicker.Converters"
       xmlns:behave="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
       xmlns:Converters="clr-namespace:DeltaColorsPicker.Converters"
       mc:Ignorable="d" 
+      d:DataContext="{d:DesignInstance VMs:ColorEyedropperViewModel, IsDesignTimeCreatable=False}"
       d:DesignHeight="450" d:DesignWidth="336"
-      Title="ColorPointerView" >
+      Title="ColorEyedropperView" >
 
     <Page.Resources>
         <ResourceDictionary>
@@ -23,8 +23,8 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    
-    <!-- No need for it, we use global hotkeys -->
+
+    <!-- No need for it, we now use global hotkeys -->
     <!-- https://stackoverflow.com/questions/32669964/where-to-put-events-when-using-mvvm -->
     <!--<behave:Interaction.Triggers>
         <behave:EventTrigger EventName="PreviewKeyDown">
@@ -122,9 +122,9 @@
 
                 <Border Background="Transparent" BorderBrush="#2F2F2F" BorderThickness="1"
                         CornerRadius="3" HorizontalAlignment="Center" >
-                    <TextBlock Text="Press SPACE + CTRL to capture the color"
+                    <TextBlock Text="Press CTRL + SPACE to capture the color"
                                FontSize="13"
-                               Foreground="White" Margin="2"
+                               Foreground="White" Margin="0,5"
                                Opacity="0.6"
                                HorizontalAlignment="Center"/>
                 </Border>

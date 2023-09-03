@@ -16,7 +16,7 @@ namespace DeltaColorsPicker.Converters
             {
                 return doubleValue / 2;
             }
-            return null;
+            return 0;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
