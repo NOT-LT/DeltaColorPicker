@@ -47,14 +47,11 @@ namespace DeltaColorsPicker
             colorsHistoryViewModel = new ColorsHistoryViewModel(); colorsHistoryView = new ColorsHistoryView();
             colorsHistoryView.DataContext = colorsHistoryViewModel;
 
-
-
             InitializeComponent();
             ColorEyedropperPageButton.IsSelected = true;
 
             Loaded += MainWindow_Loaded;
             Closing += MainWindow_Closing;
-
 
         }
 

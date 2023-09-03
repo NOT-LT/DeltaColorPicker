@@ -91,7 +91,7 @@ namespace DeltaColorsPicker.ViewModels
 
         private DispatcherTimer timer;
         //private Graphics? graphics;
-     //   private Bitmap bitmap;
+        //   private Bitmap bitmap;
         private System.Drawing.Color color;
 
         private Win32Point w32Mouse_;
