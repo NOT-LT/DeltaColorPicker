@@ -51,7 +51,7 @@ namespace DeltaColorsPicker.DataStore
             return result;
         }
 
-        public static event Action ColorsListChanged;
+        public static event Action? ColorsListChanged;
 
 
     }

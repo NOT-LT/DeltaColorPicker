@@ -86,7 +86,7 @@ namespace DeltaColorsPicker.ViewModels
             {
                 ColorsDB.AddColor_Set(CurrentColor);
                 ColorsDB.CurrentColorSet = new SavedColor(CurrentColor.Color, CurrentColor.RGB, CurrentColor.HEX, CurrentColor.SavingDateTime);
-                Clipboard.SetText(HEXValue);
+                Clipboard.SetText(RGBValue);
             });
         }
 

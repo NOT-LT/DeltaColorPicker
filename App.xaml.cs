@@ -33,16 +33,16 @@ namespace DeltaColorsPicker
             {
                 if (!File.Exists("AllSavedColors.txt"))
                 {
-                    File.WriteAllLines("AllSavedColors.txt", new string[] {null});
+                    File.WriteAllLines("AllSavedColors.txt", new string[] {""});
                 }
                 var SavedColorstxt = File.ReadAllLines("AllSavedColors.txt");
                 foreach (var line in SavedColorstxt)
                 {
-                    var HEX = line.Split("-")[0];
-                    var RGB = line.Split("-")[1];
-                    Color color = (Color)ColorConverter.ConvertFromString(HEX);
+                    //var HEX = line.Split("-")[0];
+                    //var RGB = line.Split("-")[1];
+                    Color color = (Color)ColorConverter.ConvertFromString(line.Split("-")[0]);
 
-                    ColorsDB.AddColor_Set(new SavedColor(color, RGB, HEX, DateTime.Now));
+                    ColorsDB.AddColor_Set(new SavedColor(color, line.Split("-")[1], line.Split("-")[0], DateTime.Now));
                 }
 
             }

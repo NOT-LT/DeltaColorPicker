@@ -23,7 +23,5 @@ namespace DeltaColorsPicker.Views
         {      
             InitializeComponent();
         }
-
-     
     }
 }

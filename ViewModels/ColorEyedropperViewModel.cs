@@ -24,49 +24,63 @@ using System.Windows.Ink;
 using System.Windows.Media.Media3D;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
 using System.IO;
+using Microsoft.VisualBasic;
 
 namespace DeltaColorsPicker.ViewModels
 {
     class ColorEyedropperViewModel : ObservableObject
     {
 
-        public ICommand KeyDownCommand { get { return new RelayCommand<KeyEventArgs>(KeyDownExecute); } }
-        private void KeyDownExecute(object? parameter)
+        Win32Point w32Mouse = new Win32Point();
+        //public ICommand KeyDownCommand { get { return new RelayCommand(KeyDownExecute); } } No need for it after the update since we use global hotkeys
+
+        public void KeyboardHook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
-            if (Keyboard.IsKeyDown(Key.X) && (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)))
+            //MessageBox.Show(e.Key.GetHashCode().ToString());
+            if (e.Key == Key.Space && Keyboard.Modifiers == ModifierKeys.Control)
             {
                 SelectedColor = new SavedColor(SavedColor.Color, SavedColor.RGB, SavedColor.HEX, DateTime.Now);
                 ColorsDB.AddColor_Select(SelectedColor);
+                Clipboard.SetText(SelectedColor.HEX);
             }
         }
+        
+        //private void KeyDownExecute()
+        //{
+        //    //if (Keyboard.IsKeyDown(Key.X) && (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)))
+        //    //{
+        //    //    SelectedColor = new SavedColor(SavedColor.Color, SavedColor?.RGB, SavedColor?.HEX, DateTime.Now);
+        //    //    ColorsDB.AddColor_Select(SelectedColor);
+        //    //}
+        //}
 
-        private SavedColor savedColor;
-        public SavedColor SavedColor
+        private SavedColor? savedColor;
+        public SavedColor? SavedColor
         {
             get { return savedColor; }
             set { savedColor = value; OnPropertyChanged(nameof(SavedColor)); }
         }
 
-        private SavedColor selectedColor;
-        public SavedColor SelectedColor
+        private SavedColor? selectedColor;
+        public SavedColor? SelectedColor
         {
             get { return selectedColor; }
             set { selectedColor = value; OnPropertyChanged(nameof(SelectedColor));
             }
         }
 
-        private BitmapImage bitmapImage;
-        public BitmapImage BitmapImage
+        private BitmapImage? bitmapImage;
+        public BitmapImage? BitmapImage
         {
             get { return bitmapImage; }
             set { bitmapImage = value; OnPropertyChanged(nameof(BitmapImage)); }
         }
 
-        private MemoryStream memoryStream = new MemoryStream();
-
+        private MemoryStream? memoryStream = new MemoryStream();
+        public System.Windows.Media.Color CaptureBorderBackground { get; set; }
 
         private DispatcherTimer timer;
-        private Graphics graphics;
+        private Graphics? graphics;
      //   private Bitmap bitmap;
         private System.Drawing.Color color;
 
@@ -95,9 +109,12 @@ namespace DeltaColorsPicker.ViewModels
             SavedColor = new SavedColor(ColorsDB.CurrentColorSelect.Color, ColorsDB.CurrentColorSelect.RGB, ColorsDB.CurrentColorSelect.HEX, ColorsDB.CurrentColorSelect.SavingDateTime);
             SelectedColor = new SavedColor(ColorsDB.CurrentColorSelect.Color, ColorsDB.CurrentColorSelect.RGB, ColorsDB.CurrentColorSelect.HEX, ColorsDB.CurrentColorSelect.SavingDateTime);
 
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(0.01);
-            timer.Tick += (s, e) => GetHoverColor();
+
+            CaptureBorderBackground = System.Windows.Media.Color.FromRgb(40,30,40);
+
+             timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(0.08);
+            timer.Tick += (_, _) => GetHoverColor();
             timer.Start();
         }
 
@@ -105,20 +122,20 @@ namespace DeltaColorsPicker.ViewModels
         {
             try
             {
-                var w32Mouse = new Win32Point();
+                
                 GetCursorPos(ref w32Mouse);
                 W32Mouse_ = new Win32Point() { X = w32Mouse.X, Y = w32Mouse.Y };
 
-                using (var bp = new Bitmap(110, 110))
+                using (Bitmap? bp = new Bitmap(60, 60))
                 {
                     using (graphics = Graphics.FromImage(bp))
                     {
 
                         graphics.CopyFromScreen(
-                            new System.Drawing.Point(w32Mouse.X - 110 / 2, w32Mouse.Y - 110 / 2),
+                            new System.Drawing.Point(w32Mouse.X - 60 / 2, w32Mouse.Y - 60 / 2),
                             new System.Drawing.Point(0, 0),
-                            new System.Drawing.Size(110, 110));
-                        color = bp.GetPixel(110 / 2, 110 / 2);
+                            new System.Drawing.Size(60, 60));
+                        color = bp.GetPixel(60 / 2, 60 / 2);
                         SavedColor = new SavedColor(System.Windows.Media.Color.FromArgb(color.A, color.R, color.G, color.B), $"({color.R},{color.G},{color.B})", $"#{color.R:X2}{color.G:X2}{color.B:X2}", ColorsDB.CurrentColorSelect.SavingDateTime);
                         BitmapImage = BitmapToBitmapImage(bp);
 
@@ -137,7 +154,7 @@ namespace DeltaColorsPicker.ViewModels
         private BitmapImage BitmapToBitmapImage(Bitmap bitmap)
         {
             // Clear the MemoryStream object before use
-            memoryStream.SetLength(0);
+            memoryStream?.SetLength(0);
 
             // Save the Bitmap object to the MemoryStream object
             bitmap.Save(memoryStream, ImageFormat.Png);
@@ -154,8 +171,8 @@ namespace DeltaColorsPicker.ViewModels
 
         public void Dispose()
         {
-            timer.Tick -= (s, e) => GetHoverColor();
-            memoryStream.Flush();
+            timer.Tick -= (_, _) => GetHoverColor();
+            memoryStream?.Flush();
             GC.Collect();
         }
 
