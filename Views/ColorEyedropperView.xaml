@@ -23,12 +23,14 @@
         </ResourceDictionary>
     </Page.Resources>
 
+    
+    <!-- No need for it, we use global hotkeys -->
     <!-- https://stackoverflow.com/questions/32669964/where-to-put-events-when-using-mvvm -->
-    <behave:Interaction.Triggers>
+    <!--<behave:Interaction.Triggers>
         <behave:EventTrigger EventName="PreviewKeyDown">
             <behave:InvokeCommandAction Command="{Binding KeyDownCommand}" PassEventArgsToCommand="True"/>
         </behave:EventTrigger>
-    </behave:Interaction.Triggers>
+    </behave:Interaction.Triggers>-->
 
     <!--<Page.DataContext>
         <VMs:ColorEyedropperViewModel/>
@@ -120,7 +122,7 @@
 
                 <Border Background="Transparent" BorderBrush="#2F2F2F" BorderThickness="1"
                         CornerRadius="3" HorizontalAlignment="Center" >
-                    <TextBlock Text="Press ALT + X to copy the color HEX"
+                    <TextBlock Text="Press SPACE + CTRL to capture the color"
                                FontSize="13"
                                Foreground="White" Margin="2"
                                Opacity="0.6"
@@ -129,9 +131,9 @@
 
                 <Border BorderThickness="0 0 0 1"
                         Grid.Row="0"
-                        BorderBrush="Gray"
+                        BorderBrush="{Binding CaptureBorderBackground, Converter={StaticResource ColorToSolidColorBrushConverter}}"
                         Margin="15 30 15 5"
-                        />
+                        x:Name="CaptureBorder"                        />
                 
             </Grid>
             

@@ -5,7 +5,6 @@
              xmlns:VMs="clr-namespace:DeltaColorsPicker.ViewModels"
              >
 
-
     <Application.Resources>
 
         <!--<VMs:SetColorViewModel x:Key="SetColorViewModel" x:Name="SetColorViewModel"/>
@@ -70,6 +69,7 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Trigger.EnterActions>
+                                    
                                     <BeginStoryboard>
                                         <Storyboard >
                                             <!--<DoubleAnimation  Duration="0:0:0.15" 

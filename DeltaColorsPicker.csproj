@@ -9,6 +9,10 @@
     <AssemblyName>DeltaColorsPicker</AssemblyName>
     <RootNamespace>DeltaColorsPicker</RootNamespace>
     <ApplicationIcon>DeltaColorPickerLogo.ico</ApplicationIcon>
+    <PublishSingleFile Condition="'$(Configuration)' == 'Release'">true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
   </PropertyGroup>
 
   <ItemGroup>
@@ -49,6 +53,10 @@
     <Resource Include="Assets\Images\whatsapp.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include=".github\workflows\DeltaColorsPicker.yml" />
   </ItemGroup>
 
 </Project>
