@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:VMs="clr-namespace:DeltaColorsPicker.ViewModels"
+      xmlns:Converters="clr-namespace:DeltaColorsPicker.Converters"
       xmlns:colorpicker="clr-namespace:ColorPicker;assembly=ColorPicker"
       xmlns:behave="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d" 
@@ -14,6 +15,7 @@
 
     <Page.Resources>
         <ResourceDictionary>
+            <Converters:SavedColorToColorConverter x:Key="SavedColorToColorConverter"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/ColorPicker;component/Styles/DefaultColorPickerStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
@@ -33,8 +35,7 @@
                                          Style="{StaticResource DefaultColorPickerStyle}"
                                          Width="auto" 
                                          Height="auto"   
-                                         SelectedColor="{Binding CurrentColor.Color, Mode=TwoWay}"
-                                        
+                                         SelectedColor="{Binding CurrentColor, Mode=TwoWay, Converter={StaticResource SavedColorToColorConverter}}"
                                          >
 
         </colorpicker:StandardColorPicker>

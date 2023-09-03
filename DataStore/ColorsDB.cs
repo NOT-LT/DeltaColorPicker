@@ -14,26 +14,20 @@ namespace DeltaColorsPicker.DataStore
 
 
         private static List<SavedColor> AllColors = new List<SavedColor>();
-        public static SavedColor CurrentColorSet = new SavedColor(Color.FromRgb(0,0,0), "","",DateTime.Now);
-        public static SavedColor CurrentColorSelect = new SavedColor(Color.FromRgb(0, 0, 0), "", "", DateTime.Now);
+        public static SavedColor CurrentColorSet = new SavedColor(Color.FromRgb(0,0,0), "","");
+        public static SavedColor CurrentColorSelect = new SavedColor(Color.FromRgb(0, 0, 0), "", "");
 
-        public static void AddColor_Set(SavedColor savedColor)
+        public static void AddColor_Set(in SavedColor savedColor)
         { 
-                CurrentColorSet = new SavedColor(savedColor.Color, savedColor.RGB, savedColor.HEX, savedColor.SavingDateTime);
+            CurrentColorSet = savedColor;
             AllColors.Add(CurrentColorSet);
-                ColorsListChanged?.Invoke();
-        }
-        public static void AddColor_Select(SavedColor savedColor)
-        {
-            CurrentColorSelect = new SavedColor(savedColor.Color, savedColor.RGB, savedColor.HEX, savedColor.SavingDateTime);
-            AllColors.Add(CurrentColorSelect);
             ColorsListChanged?.Invoke();
         }
-
-        public static void Delete(SavedColor savedColor)
+        public static void AddColor_Select(in SavedColor savedColor)
         {
-            if (AllColors.Contains(savedColor))
-                AllColors.Remove(savedColor);
+            CurrentColorSelect = savedColor;
+            AllColors.Add(CurrentColorSelect);
+            ColorsListChanged?.Invoke();
         }
 
         public static List<SavedColor> GetAll()
@@ -44,9 +38,9 @@ namespace DeltaColorsPicker.DataStore
         public static StringBuilder GetAll_Hex_RGB()
         {
             StringBuilder result = new StringBuilder();
-            foreach (var color in AllColors)
+            foreach (var color in ColorsDB.GetAll())
             {
-                result.AppendLine ($"{color.HEX}-{color.RGB}");
+                result.AppendLine($"{color.HEX}-{color.RGB}");
             }
             return result;
         }

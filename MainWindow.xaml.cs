@@ -1,7 +1,9 @@
-﻿using DeltaColorsPicker.ViewModels;
+﻿using DeltaColorsPicker.DataStore;
+using DeltaColorsPicker.ViewModels;
 using DeltaColorsPicker.Views;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -63,8 +65,12 @@ namespace DeltaColorsPicker
             keyboardHook.Install();
         }
 
-        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
+            foreach (var c in ColorsDB.GetAll())
+            {
+                MessageBox.Show($"T: {c.RGB}");
+            }
             keyboardHook?.Uninstall();
         }
 

@@ -12,14 +12,12 @@ namespace DeltaColorsPicker.Models
         public System.Windows.Media.Color Color { get; set; }
         public string RGB { get; set; }
         public string HEX { get; set; }
-        public DateTime SavingDateTime { get; set; }
 
-        public SavedColor(System.Windows.Media.Color _Color, string _RGB, string _HEX, DateTime _SavingDateTime)
+        public SavedColor(System.Windows.Media.Color _Color, string _RGB, string _HEX)
         {
             Color = _Color;
             RGB = _RGB;
             HEX = _HEX;
-            SavingDateTime = _SavingDateTime;
         }
 
 

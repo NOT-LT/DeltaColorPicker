@@ -42,13 +42,14 @@ namespace DeltaColorsPicker
                     //var RGB = line.Split("-")[1];
                     Color color = (Color)ColorConverter.ConvertFromString(line.Split("-")[0]);
 
-                    ColorsDB.AddColor_Set(new SavedColor(color, line.Split("-")[1], line.Split("-")[0], DateTime.Now));
+                    ColorsDB.AddColor_Set(new SavedColor(color, line.Split("-")[1], line.Split("-")[0]));
                 }
 
             }
             catch (Exception) { }
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
+            
+            MainWindow window = new MainWindow();
+            window.Show();
 
         }
 
@@ -58,7 +59,7 @@ namespace DeltaColorsPicker
             {
                 System.IO.File.WriteAllText("AllSavedColors.txt", ColorsDB.GetAll_Hex_RGB().ToString());
             }
-            catch (Exception) {}
+            catch (Exception) { }
 
             base.OnExit(e);
         }
