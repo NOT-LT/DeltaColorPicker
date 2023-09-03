@@ -1,5 +1,6 @@
 ﻿using DeltaColorsPicker.DataStore;
 using DeltaColorsPicker.Models;
+using DeltaColorsPicker.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -26,31 +27,34 @@ namespace DeltaColorsPicker
             // Load the application resources
             InitializeComponent();
 
-            ////await Task.Run(() =>
-            ////{
-            ////    try
-            ////    {
-            ////        if (!File.Exists("AllSavedColors.txt"))
-            ////        {
-            ////            File.WriteAllLines("AllSavedColors.txt", new string[] { "" });
-            ////        }
-            ////        var SavedColorstxt = File.ReadAllLines("AllSavedColors.txt");
-            ////        foreach (var line in SavedColorstxt)
-            ////        {
-            ////            //var HEX = line.Split("-")[0];
-            ////            //var RGB = line.Split("-")[1];
-            ////            Color color = (Color)ColorConverter.ConvertFromString(line.Split("-")[0]);
-            ////            ColorsDB.AddColor_Set(new SavedColor(color, line.Split("-")[1], line.Split("-")[0]));
-            ////        }
+            await Task.Run(() =>
+            {
+                try
+                {
+                    if (!File.Exists("AllSavedColors.txt"))
+                    {
+                        File.WriteAllLines("AllSavedColors.txt", new string[] { "" });
+                    }
+                    var SavedColorstxt = File.ReadAllLines("AllSavedColors.txt");
+                    foreach (var line in SavedColorstxt)
+                    {
+                        //var HEX = line.Split("-")[0];
+                        //var RGB = line.Split("-")[1];
+                        Color color = (Color)ColorConverter.ConvertFromString(line.Split("-")[0]);
+                        ColorsDB.AddColor_Set(new SavedColor(color, line.Split("-")[1], line.Split("-")[0]));
+                    }
 
-            ////    }
-            ////    catch (Exception) { }
+                }
+                catch (Exception) { }
 
-            ////});
-          
-            
-            //MainWindow window = new MainWindow();
-            new MainWindow().Show();
+            });
+
+
+            //var colorsHistoryViewModel = new ColorsHistoryViewModel();
+            //colorsHistoryViewModel.Update();
+            MainWindow window = new MainWindow();
+            //window.DataContext = new ColorsHistoryViewModel();
+            window.Show();
 
         }
 

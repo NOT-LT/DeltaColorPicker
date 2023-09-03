@@ -4,25 +4,96 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DeltaColorsPicker"
+        xmlns:Converters="clr-namespace:DeltaColorsPicker.Converters"
+        xmlns:VMs="clr-namespace:DeltaColorsPicker.ViewModels" xmlns:Views="clr-namespace:DeltaColorsPicker.Views"
         mc:Ignorable="d"
         Title="Delta ColorPicker" Height="450" Width="375" SnapsToDevicePixels="True"
         MinWidth="360" MinHeight="450" >
 
+    <Window.DataContext>
+        <VMs:ColorsHistoryViewModel/>
+    </Window.DataContext>
+    
+    <Window.Resources>
+
+
+        <VMs:ColorsHistoryViewModel x:Key="ColorsHistoryViewModel"/>
+        <Style  TargetType="{x:Type ScrollViewer}">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <ScrollContentPresenter Grid.Column="0"/>
+                            <ScrollBar Grid.Column="1"
+                       Opacity="0.75"
+                       Name="PART_VerticalScrollBar"
+                       Value="{TemplateBinding VerticalOffset}"
+                       Maximum="{TemplateBinding ScrollableHeight}"
+                       ViewportSize="{TemplateBinding ViewportHeight}"
+                       Width="15"
+                       MinWidth="15"
+                       Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
+                                       />
+
+                            <ScrollBar Name="PART_HorizontalScrollBar"
+                       Opacity="0.75"
+                       Orientation="Horizontal"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       Height="15"
+                       MinHeight="15"
+                       Value="{TemplateBinding HorizontalOffset}"
+                       Maximum="{TemplateBinding ScrollableWidth}"
+                       ViewportSize="{TemplateBinding ViewportWidth}"
+                       Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                                       />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Converters:ListToListReversedConverter x:Key="ListToListReversedConverter"/>
+        <Converters:ColorToHexConverter x:Key="ColorToHexConverter"/>
+        <Converters:ColorToRGBConverter x:Key="ColorToRGBConverter"/>
+        <Converters:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter"/>
+    </Window.Resources>
 
     <Grid Background="White">
+        
+        
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <ListBox x:Name="SideBar"
+        <Grid Grid.Column="0"
+              ScrollViewer.VerticalScrollBarVisibility="Disabled"
+              ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="145"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+
+            <ListBox x:Name="SideBar"
                  Background="WHITE"
                  Grid.Column="0"
                  Margin="0 5"
                  BorderThickness="0"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 ScrollViewer.VerticalScrollBarVisibility="Disabled">
 
-            <local:NavigationButton x:Name="ColorEyedropperPageButton"
+                <local:NavigationButton x:Name="ColorEyedropperPageButton"
                                     NavigationLink="pack://application:,,,/Views/ColorEyedropperView.xaml"
                                     Margin="3"
                                     Padding="5"
@@ -41,7 +112,7 @@
 
 
 
-            <local:NavigationButton x:Name="ColorPickerPageButton"
+                <local:NavigationButton x:Name="ColorPickerPageButton"
                                     NavigationLink="pack://application:,,,/Views/ColorPickerView.xaml"
                                     Margin="3"
                                     Padding="5"
@@ -49,7 +120,7 @@
                                     Icon="M53.8991,42.5586 C53.3971,44.6166 51.0621,45.9996 48.0881,45.9996 C47.3531,45.9996 46.6031,45.9156 45.8601,45.7506 C43.5701,45.2406 41.6261,44.0046 40.6571,42.4456 C40.0511,41.4706 39.8591,40.4316 40.1011,39.4416 C40.6031,37.3836 42.9391,35.9996 45.9121,35.9996 C46.6481,35.9996 47.3971,36.0836 48.1401,36.2496 C50.4291,36.7596 52.3741,37.9956 53.3431,39.5546 C53.9491,40.5296 54.1411,41.5686 53.8991,42.5586 M38.3881,30.6406 C37.2371,28.6676 38.7831,25.5916 41.9061,23.6386 C43.4231,22.6896 45.0461,22.1676 46.4771,22.1676 C47.9231,22.1676 49.0371,22.7106 49.6121,23.6956 C50.7631,25.6686 49.2171,28.7436 46.0941,30.6976 C44.5771,31.6456 42.9541,32.1676 41.5231,32.1676 C40.0771,32.1676 38.9631,31.6256 38.3881,30.6406 M37.4851,20.3036 C36.5961,22.5146 34.8231,23.9996 33.0731,23.9996 C32.7341,23.9996 32.4041,23.9426 32.0931,23.8296 C31.3351,23.5546 30.7441,22.9796 30.3811,22.1666 C29.8321,20.9356 29.8821,19.2646 30.5151,17.6966 C31.4041,15.4856 33.1771,13.9996 34.9271,13.9996 C35.2661,13.9996 35.5961,14.0576 35.9071,14.1706 C36.6661,14.4466 37.2581,15.0226 37.6201,15.8356 C38.1681,17.0656 38.1181,18.7356 37.4851,20.3036 M22.0001,25.9996 C19.7941,25.9996 18.0001,23.7566 18.0001,20.9996 C18.0001,18.2436 19.7941,15.9996 22.0001,15.9996 C24.2061,15.9996 26.0001,18.2436 26.0001,20.9996 C26.0001,23.7566 24.2061,25.9996 22.0001,25.9996 M15.0001,49.9996 C12.2431,49.9996 10.0001,47.7566 10.0001,44.9996 C10.0001,42.2436 12.2431,39.9996 15.0001,39.9996 C17.7571,39.9996 20.0001,42.2436 20.0001,44.9996 C20.0001,47.7566 17.7571,49.9996 15.0001,49.9996 M29.0001,7.9996 C14.0471,7.9996 4.0001,18.8506 4.0001,34.9996 C4.0001,49.1866 9.3641,57.9996 18.0001,57.9996 C24.1061,57.9996 24.2611,51.9846 24.3841,47.1506 C24.5261,41.6106 24.9291,38.9996 28.0001,38.9996 C31.4971,38.9996 33.2501,41.4006 35.4701,44.4396 C38.2551,48.2536 41.7221,52.9996 50.0001,52.9996 C53.7351,52.9996 60.0001,51.3106 60.0001,39.9996 C60.0001,21.7566 46.6731,7.9996 29.0001,7.9996"
                                     Selected="ColorPickerPageButton_Selected"/>
 
-            <local:NavigationButton x:Name="ColorsHistoryButton"
+                <local:NavigationButton x:Name="ColorsHistoryButton"
                                     NavigationLink="pack://application:,,,/Views/ColorsHistoryView.xaml"
                                     Margin="3"
                                     Padding="5"
@@ -57,7 +128,7 @@
                                     Selected="ColorsHistoryButton_Selected"/>
 
 
-            <local:NavigationButton x:Name="InfoPageHButton"
+                <local:NavigationButton x:Name="InfoPageHButton"
                                     NavigationLink="pack://application:,,,/Views/InfoView.xaml"
                                     Margin="3"
                                     Padding="5"
@@ -66,8 +137,43 @@
                                     />
 
 
-        </ListBox>
+            </ListBox>
 
+            <Frame Grid.Row="1" x:Name="SideFrame"  Background="#202020"
+               NavigationUIVisibility="Hidden"></Frame>
+
+
+                <!--<StackPanel Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" CanVerticallyScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                        SnapsToDevicePixels="True" Background="#202020" Margin="0 5 0 0" DataContext="{StaticResource ColorsHistoryViewModel}">
+
+                <ItemsControl x:Name="ListViewColors" Margin="0 5 0 0"
+                              ItemsSource="{Binding AllSavedColors, Mode=TwoWay, Converter={StaticResource ListToListReversedConverter}}">
+
+                    <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border CornerRadius="5"
+                    BorderThickness="1" BorderBrush="Black"
+                    Margin="4 4"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    SnapsToDevicePixels="False">
+                                        
+                                            <Rectangle Grid.Column="1" Fill="{Binding Color, Converter={StaticResource ColorToSolidColorBrushConverter}}"
+                                                   Width="30"
+                                                   Height="30"
+                                                   MaxWidth="30" MinWidth="30"
+                                                   MaxHeight="30" MinHeight="30"
+                                                       RadiusX="5"
+                                                       RadiusY="5"/>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            
+                        </ItemsControl>
+                </StackPanel>-->
+
+        </Grid>
+        
        
 
         <Frame x:Name="NavFrame"

@@ -1,0 +1,108 @@
+﻿<Page x:Class="DeltaColorsPicker.Views.ColorsHistoryViewUpdated"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DeltaColorsPicker.Views"
+      xmlns:VMs="clr-namespace:DeltaColorsPicker.ViewModels"
+      xmlns:Converters="clr-namespace:DeltaColorsPicker.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="40"
+      Title="ColorsHistoryViewUpdated">
+
+    <Page.Resources>
+        <Converters:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter"/>
+        <Converters:ColorToHexConverter x:Key="ColorToHexConverter"/>
+        <Converters:ColorToRGBConverter x:Key="ColorToRGBConverter"/>
+        <Converters:ListToListReversedConverter x:Key="ListToListReversedConverter"/>
+
+        <Style TargetType="{x:Type ScrollViewer}">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <ScrollContentPresenter Grid.Column="0"/>
+                            <!-- Hide the vertical scrollbar by setting Visibility to Collapsed -->
+                            <ScrollBar Grid.Column="1"
+                               Opacity="0.65"
+                               Name="PART_VerticalScrollBar"
+                               Value="{TemplateBinding VerticalOffset}"
+                               Maximum="{TemplateBinding ScrollableHeight}"
+                               ViewportSize="{TemplateBinding ViewportHeight}"
+                               Width="15"
+                               MinWidth="15"
+                               Visibility="Collapsed" />
+                            <!-- Hide the horizontal scrollbar by setting Visibility to Collapsed -->
+                            <ScrollBar Name="PART_HorizontalScrollBar"
+                               Opacity="0.75"
+                               Orientation="Horizontal"
+                               Grid.Row="1"
+                               Grid.Column="0"
+                               Height="15"
+                               MinHeight="15"
+                               Value="{TemplateBinding HorizontalOffset}"
+                               Maximum="{TemplateBinding ScrollableWidth}"
+                               ViewportSize="{TemplateBinding ViewportWidth}"
+                               Visibility="Collapsed" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+    </Page.Resources>
+
+    <Grid Background="#202020" SnapsToDevicePixels="True">
+
+        <ScrollViewer>
+            <StackPanel Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" CanVerticallyScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                        SnapsToDevicePixels="True" Background="#202020" Margin="0 5 0 0">
+
+                <ItemsControl x:Name="ListViewColors" Margin="0 5 0 0"
+                              ItemsSource="{Binding AllSavedColors, Mode=TwoWay, Converter={StaticResource ListToListReversedConverter}}">
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border CornerRadius="5"
+                    BorderThickness="1" BorderBrush="Black"
+                    Margin="4 4"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    SnapsToDevicePixels="False">
+
+                                <Grid>
+                                    <!-- Rectangle to show the color -->
+                                    <Rectangle Grid.Column="1" Fill="{Binding Color, Converter={StaticResource ColorToSolidColorBrushConverter}}"
+                                           MaxWidth="30" MinWidth="30"
+                                           MaxHeight="30" MinHeight="30"
+                                           RadiusX="5" RadiusY="5"
+                                               MouseDown="Rectangle_MouseDown"
+                                               Cursor="Hand"/>
+                                    <!-- TextBlock to display "copied" -->
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+
+        
+
+
+
+    </Grid>
+
+
+</Page>

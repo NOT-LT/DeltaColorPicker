@@ -30,6 +30,7 @@ namespace DeltaColorsPicker
         ColorEyedropperView colorEyedropperView;
         ColorPickerView colorPickerView;
         ColorsHistoryView colorsHistoryView;
+        ColorsHistoryViewUpdated colorsHistoryViewUpdated;
 
         ColorEyedropperViewModel colorEyedropperViewModel;
         ColorPickerViewModel colorPickerViewModel;
@@ -40,12 +41,16 @@ namespace DeltaColorsPicker
 
         public MainWindow()
         {
+      
+
             colorEyedropperViewModel = new ColorEyedropperViewModel(); colorEyedropperView = new ColorEyedropperView();
             colorEyedropperView.DataContext = colorEyedropperViewModel;
             colorPickerViewModel = new ColorPickerViewModel(); colorPickerView = new ColorPickerView();
             colorPickerView.DataContext = colorPickerViewModel;
             colorsHistoryViewModel = new ColorsHistoryViewModel(); colorsHistoryView = new ColorsHistoryView();
             colorsHistoryView.DataContext = colorsHistoryViewModel;
+           colorsHistoryViewUpdated = new ColorsHistoryViewUpdated();
+            colorsHistoryViewUpdated.DataContext = colorsHistoryViewModel;
 
             InitializeComponent();
             ColorEyedropperPageButton.IsSelected = true;
@@ -53,6 +58,9 @@ namespace DeltaColorsPicker
             Loaded += MainWindow_Loaded;
             Closing += MainWindow_Closing;
 
+
+            //this.DataContext = colorsHistoryViewModel;
+            //colorsHistoryViewModel.Update();
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -60,14 +68,11 @@ namespace DeltaColorsPicker
             keyboardHook = new LowLevelKeyboardHook();
             keyboardHook.KeyPressed += colorEyedropperViewModel.KeyboardHook_KeyPressed;
             keyboardHook.Install();
+            SideFrame.Navigate(colorsHistoryViewUpdated);
         }
 
         private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
         {
-            foreach (var c in ColorsDB.GetAll())
-            {
-                MessageBox.Show($"T: {c.RGB}");
-            }
             keyboardHook?.Uninstall();
         }
 
@@ -94,11 +99,13 @@ namespace DeltaColorsPicker
         private void ColorsHistoryButton_Selected(object sender, RoutedEventArgs e)
         {
             //var btn = (NavigationButton)sender;
-            colorsHistoryViewModel = new ColorsHistoryViewModel();
-            colorsHistoryView = new ColorsHistoryView();
-            colorsHistoryView.DataContext = colorsHistoryViewModel;
-            colorsHistoryViewModel.Update();
+            //colorsHistoryViewModel = new ColorsHistoryViewModel();
+            //colorsHistoryView = new ColorsHistoryView();
+            //colorsHistoryView.DataContext = colorsHistoryViewModel;
+            //colorsHistoryViewModel.Update();
             NavFrame.Navigate(colorsHistoryView);
+
+           
         }
 
         private void InfoPageHButton_Selected(object sender, RoutedEventArgs e)

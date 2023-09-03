@@ -22,8 +22,8 @@ namespace DeltaColorsPicker.ViewModels
 			set { 
 				allSavedColors = value;
 				OnPropertyChanged(nameof(AllSavedColors));
-				}
-		}
+            }
+        }
 
 		public ColorsHistoryViewModel()
 		{
@@ -32,21 +32,21 @@ namespace DeltaColorsPicker.ViewModels
 			ColorsDB.ColorsListChanged += ColorsDB_NewColorAdded;
 		}
 
-        public void Dispose()
-        {
-            ColorsDB.ColorsListChanged -= ColorsDB_NewColorAdded;
-        }
 
-        public void Update()
-		{
-            AllSavedColors = new ObservableCollection<SavedColor>();
-            ColorsDB.GetAll().ForEach(color => AllSavedColors.Add(color));
-        }
+  //      public void Update()
+		//{
+  //          AllSavedColors = new ObservableCollection<SavedColor>();
+  //          ColorsDB.GetAll().ForEach(color => AllSavedColors.Add(color));
+  //      }
 
         private void ColorsDB_NewColorAdded()
 		{
-			ColorsDB.GetAll().ForEach(color => AllSavedColors.Add(color));
-			//Dispose();
+            ColorsDB.GetAll().ForEach(color =>
+            {
+                AllSavedColors.Add(color);
+                OnPropertyChanged(nameof(AllSavedColors));
+            });
+            
         }
 
     }

@@ -59,4 +59,17 @@
     <None Include=".github\workflows\DeltaColorsPicker.yml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Views\ColorsHistoryViewUpdated.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\ColorsHistoryViewUpdated.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>
