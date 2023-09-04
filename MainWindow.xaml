@@ -139,10 +139,10 @@
 
             </ListBox>
 
-            <Frame Grid.Row="1" x:Name="SideFrame"  Background="#202020"
+            <Frame Grid.Row="1" x:Name="SideFrame"  Background="White"
                NavigationUIVisibility="Hidden"></Frame>
 
-
+                <!--Old version-->
                 <!--<StackPanel Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" CanVerticallyScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible"
                         SnapsToDevicePixels="True" Background="#202020" Margin="0 5 0 0" DataContext="{StaticResource ColorsHistoryViewModel}">
 

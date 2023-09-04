@@ -31,24 +31,7 @@ namespace DeltaColorsPicker.ViewModels
     class ColorEyedropperViewModel : ObservableObject
     {
 
-        Win32Point w32Mouse = new Win32Point();
         //public ICommand KeyDownCommand { get { return new RelayCommand(KeyDownExecute); } } No need for it after the update since we use global hotkeys
-
-        public async void KeyboardHook_KeyPressed(object sender, KeyPressedEventArgs e)
-        {
-            //MessageBox.Show(e.Key.GetHashCode().ToString());
-            if (e.Key == Key.Space && Keyboard.Modifiers == ModifierKeys.Control)
-            {
-                SelectedColor = new SavedColor(SavedColor.Color, SavedColor.RGB, SavedColor.HEX);
-                ColorsDB.AddColor_Select(SelectedColor);
-                Clipboard.SetText(SelectedColor.HEX);
-                CaptureBorderBackground = System.Windows.Media.Color.FromRgb(58, 166, 56);
-                await Task.Delay(750);
-                CaptureBorderBackground = System.Windows.Media.Color.FromRgb(99, 99, 98);
-
-            }
-        }
-        
         //private void KeyDownExecute()
         //{
         //    //if (Keyboard.IsKeyDown(Key.X) && (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)))
@@ -56,7 +39,28 @@ namespace DeltaColorsPicker.ViewModels
         //    //    SelectedColor = new SavedColor(SavedColor.Color, SavedColor?.RGB, SavedColor?.HEX, DateTime.Now);
         //    //    ColorsDB.AddColor_Select(SelectedColor);
         //    //}
-        //}
+        //}\
+
+        public async void KeyboardHook_KeyPressed(object sender, KeyPressedEventArgs e)
+        {
+            //MessageBox.Show(e.Key.GetHashCode().ToString());
+            if (e.Key == Key.Space && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                try
+                {
+                    SelectedColor = new SavedColor(SavedColor.Color, SavedColor.RGB, SavedColor.HEX);
+                    ColorsDB.AddColor_Select(SelectedColor);
+                    Clipboard.SetText(SelectedColor.HEX);
+                    CaptureBorderBackground = System.Windows.Media.Color.FromRgb(58, 166, 56);
+                    await Task.Delay(750);
+                    CaptureBorderBackground = System.Windows.Media.Color.FromRgb(99, 99, 98);
+                }
+                catch { }                     
+
+            }
+        }
+        
+
 
         private SavedColor? savedColor;
         public SavedColor? SavedColor
@@ -94,6 +98,8 @@ namespace DeltaColorsPicker.ViewModels
         //   private Bitmap bitmap;
         private System.Drawing.Color color;
 
+        Win32Point w32Mouse = new Win32Point();
+
         private Win32Point w32Mouse_;
         public Win32Point W32Mouse_
         {
@@ -123,7 +129,7 @@ namespace DeltaColorsPicker.ViewModels
             CaptureBorderBackground = System.Windows.Media.Color.FromRgb(99, 99, 98);
 
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(0.08);
+            timer.Interval = TimeSpan.FromSeconds(0.03);
             timer.Tick += (_, _) => GetHoverColor();
             timer.Start();
         }

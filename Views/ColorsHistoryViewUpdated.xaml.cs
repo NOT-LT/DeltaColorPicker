@@ -1,6 +1,9 @@
-﻿using System;
+﻿using DeltaColorsPicker.Converters;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -8,13 +11,12 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Rectangle = System.Windows.Shapes.Rectangle;
+using Brushes = System.Windows.Media.Brushes;
+using Color = System.Windows.Media.Color;
+using Path = System.Windows.Shapes.Path;
 
 namespace DeltaColorsPicker.Views
 {
@@ -26,41 +28,27 @@ namespace DeltaColorsPicker.Views
         public ColorsHistoryViewUpdated()
         {
             InitializeComponent();
+            //tooltip.Closed += tooltip_Closed;
         }
 
-        private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
+
+
+        private void ColorBorder_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            var rect = (Rectangle)(sender);
-            Clipboard.SetText("#" + rect.Fill.ToString().Substring(3, 6)); // RGBA TO RGB in Hexdecimal
+            try
+            {
+                var border = (Border)(sender);
+                Clipboard.SetText("#" + border.Background.ToString().Substring(3, 6)); // RGBA TO RGB in Hexdecimal
+            }
+            catch (Exception) { }
+
+           
+
         }
 
-        //private async void HEX_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    TextBlock textBlock = (TextBlock)sender;
-        //    if (textBlock != null)
-        //    {
-        //        var hex = textBlock.Text;
-        //        Clipboard.SetText(hex);
-        //        textBlock.Text = "Copied";
-        //        await Task.Delay(1000);
-        //        textBlock.Text = hex;
-        //    }
 
-        //}
 
-        //private async void RGB_PreviewMouseDown(object sender, MouseButtonEventArgs e)
-        //{
-        //    TextBlock textBlock = (TextBlock)sender;
-        //    if (textBlock != null)
-        //    {
-        //        var rgb = textBlock.Text;
-        //        Clipboard.SetText(rgb);
-        //        textBlock.Text = "Copied";
-        //        await Task.Delay(1000);
-        //        textBlock.Text = rgb;
-        //    }
 
-        //}
 
     }
 }

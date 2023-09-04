@@ -11,6 +11,13 @@
       Title="ColorsHistoryViewUpdated">
 
     <Page.Resources>
+
+        <Storyboard x:Key="StrokeColorStoryboard">
+            <ColorAnimation Storyboard.TargetProperty="Stroke.Color"
+            From="Black" To="Yellow" Duration="0:0:0.5"
+            AutoReverse="True" />
+        </Storyboard>
+        
         <Converters:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter"/>
         <Converters:ColorToHexConverter x:Key="ColorToHexConverter"/>
         <Converters:ColorToRGBConverter x:Key="ColorToRGBConverter"/>
@@ -59,46 +66,88 @@
             </Setter>
         </Style>
 
-
     </Page.Resources>
 
-    <Grid Background="#202020" SnapsToDevicePixels="True">
+    <Grid Background="White" SnapsToDevicePixels="True" HorizontalAlignment="Center">
 
-        <ScrollViewer>
-            <StackPanel Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" CanVerticallyScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible"
-                        SnapsToDevicePixels="True" Background="#202020" Margin="0 5 0 0">
-
+        <ScrollViewer x:Name="ScrollViewer1">
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center" CanVerticallyScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                Background="White" Margin="0 5 0 0">
                 <ItemsControl x:Name="ListViewColors" Margin="0 5 0 0"
-                              ItemsSource="{Binding AllSavedColors, Mode=TwoWay, Converter={StaticResource ListToListReversedConverter}}">
-
+                      ItemsSource="{Binding AllSavedColors, Mode=TwoWay, Converter={StaticResource ListToListReversedConverter}}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border CornerRadius="5"
-                    BorderThickness="1" BorderBrush="Black"
-                    Margin="4 4"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    SnapsToDevicePixels="False">
+
+
+                            <Border x:Name="ColorBorder" Grid.Column="1" MaxWidth="30" MinWidth="30" MaxHeight="30" MinHeight="30"
+        MouseDown="ColorBorder_MouseDown" Cursor="Hand" Background="{Binding Color, Converter={StaticResource ColorToSolidColorBrushConverter}}"
+        CornerRadius="5" HorizontalAlignment="Center" Margin="4 3" VerticalAlignment="Center" SnapsToDevicePixels="False" BorderBrush="Black" BorderThickness="1">
+                                <Border.Clip>
+                                    <RectangleGeometry RadiusX="5" RadiusY="5" />
+                                </Border.Clip>
 
                                 <Grid>
-                                    <!-- Rectangle to show the color -->
-                                    <Rectangle Grid.Column="1" Fill="{Binding Color, Converter={StaticResource ColorToSolidColorBrushConverter}}"
-                                           MaxWidth="30" MinWidth="30"
-                                           MaxHeight="30" MinHeight="30"
-                                           RadiusX="5" RadiusY="5"
-                                               MouseDown="Rectangle_MouseDown"
-                                               Cursor="Hand"/>
-                                    <!-- TextBlock to display "copied" -->
+                                        <Path x:Name="pathElement" Fill="White" Margin="3 4 0 0"
+                                              HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0">
+                                            <Path.Data>
+                                                    <GeometryGroup FillRule="EvenOdd">
+                                                        <PathGeometry>
+                                                            <PathFigure StartPoint="21,8">
+                                                                <PolyLineSegment Points="21,6.34315 19.6569,5 18,5 10,5 8.34315,5 7,6.34315 7,8 7,20 7,21.6569 8.34315,23 10,23 18,23 19.6569,23 21,21.6569 21,20 21,8"/>
+                                                            </PathFigure>
+                                                        </PathGeometry>
+                                                        <PathGeometry>
+                                                            <PathFigure StartPoint="6,3">
+                                                                <LineSegment Point="16,3"/>
+                                                                <PolyLineSegment Points="17,3 17,2 16,1 6,1 4.34315,1 3,2.34315 3,4 3,18 3,18.5523 3.44772,19 4,19 4.55228,19 5,18.5523 5,18 5,4 5,3"/>
+                                                            </PathFigure>
+                                                        </PathGeometry>
+                                                    </GeometryGroup>
+                                                </Path.Data>
+                                                <!-- Apply ScaleTransform to resize the path -->
+                                            <Path.RenderTransform>
+                                                <ScaleTransform ScaleX=".78" ScaleY=".78"/>
+                                            </Path.RenderTransform>
+                                        </Path>
                                 </Grid>
-                            </Border>
+
+
+                                    <Border.Triggers>
+                                        <EventTrigger RoutedEvent="MouseEnter">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetName="pathElement" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2" />
+                                                    <DoubleAnimation Storyboard.TargetName="ColorBorder" Storyboard.TargetProperty="Opacity" To="0.75" Duration="0:0:0.2" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                        <EventTrigger RoutedEvent="MouseLeave">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <DoubleAnimation Storyboard.TargetName="pathElement" Storyboard.TargetProperty="Opacity" To="0" Duration="0:0:0.2" />
+                                                    <DoubleAnimation Storyboard.TargetName="ColorBorder" Storyboard.TargetProperty="Opacity" To="1" Duration="0:0:0.2" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                        <EventTrigger RoutedEvent="MouseDown">
+                                            <BeginStoryboard>
+                                                <Storyboard>
+                                                    <ColorAnimation Storyboard.TargetName="pathElement" Storyboard.TargetProperty="(Fill).(SolidColorBrush.Color)" To="Green" Duration="0:0:0.15" AutoReverse="True"/>
+                                                    <ColorAnimation Storyboard.TargetName="ColorBorder" Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" To="White" Duration="0:0:0.15" AutoReverse="True"/>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                
+                                    </Border.Triggers>
+
+                                </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
-
                 </ItemsControl>
             </StackPanel>
         </ScrollViewer>
 
-        
+
 
 
 

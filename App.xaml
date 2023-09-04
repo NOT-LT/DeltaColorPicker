@@ -72,54 +72,17 @@
                                     
                                     <BeginStoryboard>
                                         <Storyboard >
-                                            <!--<DoubleAnimation  Duration="0:0:0.15" 
-                                                             AutoReverse="True" 
-                                                             Storyboard.TargetProperty="(ContentPresenter.Opacity)"
-                                                             Storyboard.TargetName="BtnText" 
-                                                             To="0.1"/>
-
-                                            <DoubleAnimation Duration="0:0:0.15"
-                                                             AutoReverse="True" 
-                                                             Storyboard.TargetName="border"
-                                                             Storyboard.TargetProperty="(Border.Opacity)"
-                                                             To="0.75"
-                                                             />-->
-
                                             <ColorAnimation To="#FF333333" Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)" Duration="0:0:0.185"/>
-                                            <!--<StringAnimationUsingKeyFrames
-            Storyboard.TargetName="BtnText" 
-            Storyboard.TargetProperty="(ContentPresenter.Content)"
-            >
-                                                <DiscreteStringKeyFrame Value="COPY AS RGB" KeyTime="0:0:0.15"  />
-                                            </StringAnimationUsingKeyFrames>-->
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.EnterActions>
                                 
                                 <Trigger.ExitActions>
                                     <BeginStoryboard>
-                                        <Storyboard >
-
-                                            <!--<DoubleAnimation  Duration="0:0:0.15" 
-                                                             AutoReverse="True" 
-                                                             Storyboard.TargetProperty="(ContentPresenter.Opacity)"
-                                                             Storyboard.TargetName="BtnText" 
-                                                             To="0.1"/>
-
-                                            <DoubleAnimation Duration="0:0:0.15"
-                                                             AutoReverse="True" 
-                                                             Storyboard.TargetName="border"
-                                                             Storyboard.TargetProperty="(Border.Opacity)"
-                                                             To="0.75"
-                                                             />-->
+                                        <Storyboard>
 
                                             <ColorAnimation To="#252525" Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"  Duration="0:0:0.185"/>
-                                            <!--<StringAnimationUsingKeyFrames
-            Storyboard.TargetName="BtnText" 
-            Storyboard.TargetProperty="(ContentPresenter.Content)"
-            >
-                                                <DiscreteStringKeyFrame Value="COPY AS HEX" KeyTime="0:0:0.2"  />
-                                            </StringAnimationUsingKeyFrames>-->
+                        
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.ExitActions>

@@ -14,6 +14,7 @@ namespace DeltaColorsPicker.ViewModels
 {
     class ColorsHistoryViewModel : ObservableObject
     {
+
 		private ObservableCollection<SavedColor> allSavedColors;
 
 		public ObservableCollection<SavedColor> AllSavedColors

@@ -15,7 +15,7 @@ namespace DeltaColorsPicker.Converters
         {
             if (value is Color color)
             {
-                return new SolidColorBrush(color);
+                return "#" + new SolidColorBrush(color).ToString().Substring(3,6);
             }
             return new SolidColorBrush();
         }
