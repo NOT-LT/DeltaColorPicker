@@ -5,8 +5,11 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -25,12 +28,10 @@ namespace DeltaColorsPicker
 
 
             base.OnStartup(e);
-
-            // Load the application resources
-
-
-
             InitializeComponent();
+
+            new MainWindow().Show();
+
 
             Task.Run(() =>
             {
@@ -40,28 +41,39 @@ namespace DeltaColorsPicker
                     {
                         File.WriteAllLines("AllSavedColors.txt", new string[] { "" });
                     }
-                    var SavedColorstxt = File.ReadAllLines("AllSavedColors.txt");
-                    foreach (var line in SavedColorstxt)
+                    foreach (var _ in File.ReadAllLines("AllSavedColors.txt"))
                     {
                         //var HEX = line.Split("-")[0];
                         //var RGB = line.Split("-")[1];
-                        Color color = (Color)ColorConverter.ConvertFromString(line.Split("-")[0]);
-                        ColorsDB.AddColor_Set(new SavedColor(color, line.Split("-")[1], line.Split("-")[0]));
+                        Color color = (Color)ColorConverter.ConvertFromString(_.Split("-")[0]);
+                        ColorsDB.AddColor_Set(new SavedColor(color, _.Split("-")[1], _.Split("-")[0]));
                     }
 
                 }
                 catch (Exception) { }
 
             });
-            // Load your resources here
-            // For example, you can load assemblies, initialize components, etc.
 
-            // Once the resources are loaded, create and show the main window on the UI thread
-            Dispatcher.Invoke(() =>
+            // Checking for updates
+            Task.Run(() =>
             {
-                MainWindow = new MainWindow();
-                MainWindow.Show();
+                using (HttpClient client = new HttpClient())
+                {
+                    try
+                    {
+                        if (client.GetStringAsync("https://raw.githubusercontent.com/NOT-LT/DeltaColorPicker/master/Updates.txt").Result.Contains("Update Available: True") && MessageBox.Show("An update is available. Do you want to visit the repository?", "Update Available", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            Process.Start(new ProcessStartInfo() { UseShellExecute = true, FileName = "https://github.com/NOT-LT/DeltaColorPicker" }); ;
+                        }
+                    }
+                    catch ( Exception) { }
+
+                }
             });
+
+            
+               
+            
 
         }
 
