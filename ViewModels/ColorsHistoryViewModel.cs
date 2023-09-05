@@ -9,13 +9,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.IO;
+using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 
 namespace DeltaColorsPicker.ViewModels
 {
-    class ColorsHistoryViewModel : ObservableObject
+    public class ColorsHistoryViewModel : ObservableObject
     {
 
-		private ObservableCollection<SavedColor> allSavedColors;
+        public RelayCommand ClearColorsCommand { get; set; }
+
+
+        private ObservableCollection<SavedColor> allSavedColors;
 
 		public ObservableCollection<SavedColor> AllSavedColors
         {
@@ -31,6 +36,16 @@ namespace DeltaColorsPicker.ViewModels
 			AllSavedColors = new ObservableCollection<SavedColor>();
 			ColorsDB.GetAll().ForEach(color => AllSavedColors.Add(color));
 			ColorsDB.ColorsListChanged += ColorsDB_NewColorAdded;
+
+            ClearColorsCommand = new RelayCommand(() =>
+            {
+                if (MessageBox.Show("Are you sure you want to clear the color history", "Confirmation", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    ColorsDB.ClearAll();
+                    AllSavedColors.Clear();
+                    OnPropertyChanged(nameof(AllSavedColors));
+                }
+            });
 		}
 
 
@@ -42,7 +57,7 @@ namespace DeltaColorsPicker.ViewModels
 
         private void ColorsDB_NewColorAdded()
 		{
-            ColorsDB.GetAll().ForEach(color =>
+            ColorsDB.GetAll()?.ForEach(color =>
             {
                 AllSavedColors.Add(color);
                 OnPropertyChanged(nameof(AllSavedColors));

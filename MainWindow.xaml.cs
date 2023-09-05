@@ -114,7 +114,10 @@ namespace DeltaColorsPicker
             NavFrame.Navigate(btn?.NavigationLink);
         }
 
-       
+        private void ClearColorsButton_Selected(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
 }

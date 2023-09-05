@@ -7,11 +7,6 @@
 
     <Application.Resources>
 
-        <!--<VMs:SetColorViewModel x:Key="SetColorViewModel" x:Name="SetColorViewModel"/>
-        <VMs:ColorsHistoryViewModel x:Key="ColorsHistoryViewModel" x:Name="ColorsHistoryViewModel"/>
-        <VMs:ColorPointerViewModel x:Key="ColorPointerViewModel" x:Name="ColorPointerViewModel"/>-->
-
-
         <Style TargetType="Button" x:Key="ImageButton">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="White" />

@@ -80,15 +80,15 @@
               ScrollViewer.VerticalScrollBarVisibility="Disabled"
               ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <Grid.RowDefinitions>
-                <RowDefinition Height="145"/>
+                <RowDefinition Height="140"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
 
             <ListBox x:Name="SideBar"
-                 Background="WHITE"
+                 Background="White"
                  Grid.Column="0"
-                 Margin="0 5"
+                 Margin="0 5 0 0"
                  BorderThickness="0"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  ScrollViewer.VerticalScrollBarVisibility="Disabled">
@@ -137,40 +137,12 @@
                                     />
 
 
+               
             </ListBox>
 
-            <Frame Grid.Row="1" x:Name="SideFrame"  Background="White"
+            <Frame Grid.Column="1" Grid.Row="1" x:Name="SideFrame"  Background="White"
                NavigationUIVisibility="Hidden"></Frame>
 
-                <!--Old version-->
-                <!--<StackPanel Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" CanVerticallyScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible"
-                        SnapsToDevicePixels="True" Background="#202020" Margin="0 5 0 0" DataContext="{StaticResource ColorsHistoryViewModel}">
-
-                <ItemsControl x:Name="ListViewColors" Margin="0 5 0 0"
-                              ItemsSource="{Binding AllSavedColors, Mode=TwoWay, Converter={StaticResource ListToListReversedConverter}}">
-
-                    <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Border CornerRadius="5"
-                    BorderThickness="1" BorderBrush="Black"
-                    Margin="4 4"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    SnapsToDevicePixels="False">
-                                        
-                                            <Rectangle Grid.Column="1" Fill="{Binding Color, Converter={StaticResource ColorToSolidColorBrushConverter}}"
-                                                   Width="30"
-                                                   Height="30"
-                                                   MaxWidth="30" MinWidth="30"
-                                                   MaxHeight="30" MinHeight="30"
-                                                       RadiusX="5"
-                                                       RadiusY="5"/>
-                                    </Border>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                            
-                        </ItemsControl>
-                </StackPanel>-->
 
         </Grid>
         

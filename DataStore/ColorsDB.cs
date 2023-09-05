@@ -35,6 +35,12 @@ namespace DeltaColorsPicker.DataStore
             return AllColors;
         }
 
+        public static void ClearAll()
+        {
+            AllColors?.Clear();
+            ColorsListChanged?.Invoke();
+        }
+
         public static StringBuilder GetAll_Hex_RGB()
         {
             StringBuilder result = new StringBuilder();

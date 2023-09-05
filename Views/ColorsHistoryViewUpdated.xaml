@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DeltaColorsPicker.Views"
       xmlns:VMs="clr-namespace:DeltaColorsPicker.ViewModels"
-      xmlns:Converters="clr-namespace:DeltaColorsPicker.Converters"
+      xmlns:Converters="clr-namespace:DeltaColorsPicker.Converters" d:DataContext="{d:DesignInstance Type=VMs:ColorsHistoryViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="40"
       Title="ColorsHistoryViewUpdated">
@@ -69,22 +69,23 @@
     </Page.Resources>
 
     <Grid Background="White" SnapsToDevicePixels="True" HorizontalAlignment="Center">
-
-        <ScrollViewer x:Name="ScrollViewer1">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="48"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer x:Name="ScrollViewer1" Grid.Row="0">
             <StackPanel Grid.Row="1" HorizontalAlignment="Center" CanVerticallyScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible"
                 Background="White" Margin="0 5 0 0">
                 <ItemsControl x:Name="ListViewColors" Margin="0 5 0 0"
-                      ItemsSource="{Binding AllSavedColors, Mode=TwoWay, Converter={StaticResource ListToListReversedConverter}}">
+                      ItemsSource="{Binding AllSavedColors, Converter={StaticResource ListToListReversedConverter}}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
 
 
                             <Border x:Name="ColorBorder" Grid.Column="1" MaxWidth="30" MinWidth="30" MaxHeight="30" MinHeight="30"
-        MouseDown="ColorBorder_MouseDown" Cursor="Hand" Background="{Binding Color, Converter={StaticResource ColorToSolidColorBrushConverter}}"
-        CornerRadius="5" HorizontalAlignment="Center" Margin="4 3" VerticalAlignment="Center" SnapsToDevicePixels="False" BorderBrush="Black" BorderThickness="1">
-                                <Border.Clip>
-                                    <RectangleGeometry RadiusX="5" RadiusY="5" />
-                                </Border.Clip>
+                                    MouseDown="ColorBorder_MouseDown" Cursor="Hand" Background="{Binding Color, Converter={StaticResource ColorToSolidColorBrushConverter}}"
+                                    CornerRadius="5" HorizontalAlignment="Center" Margin="4 3" VerticalAlignment="Center" SnapsToDevicePixels="False" BorderBrush="Black" BorderThickness="1">
+                              
 
                                 <Grid>
                                         <Path x:Name="pathElement" Fill="White" Margin="3 4 0 0"
@@ -144,10 +145,41 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+               
             </StackPanel>
         </ScrollViewer>
 
+        <Button x:Name="ClearColorsButton" Grid.Row="1" Focusable="False" Margin="3" Padding="10" Command="{Binding ClearColorsCommand}">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="HorizontalAlignment" Value="Center" />
+                    <Setter Property="VerticalAlignment" Value="Center" />
+                    <Setter Property="Cursor" Value="Hand"/>
 
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="back" Background="DarkRed" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="18" Width="30" Height="30">
+                                    <Path x:Name="icon" Data="M399.179,67.285L324.385,67.318L324.356,0L166.214,0.066,166.243,67.384,91.441,67.417,91.465,130.331,399.204,130.365,399.179,67.285z M198.297,32.128,292.327,32.087,292.344,67.349,198.314,67.39,198.297,32.128z M91.465,490.646,399.204,490.646,399.204,146.359,91.465,146.359,91.465,490.646z M317.489,193.372,333.517,193.372,333.517,443.631,317.489,443.631,317.489,193.372z M237.349,193.372,253.377,193.372,253.377,443.631,237.349,443.631,237.349,193.372z M157.208,193.372,173.236,193.372,173.236,443.631,157.208,443.631,157.208,193.372z" Fill="#D8D8D8" Stretch="Uniform" Height="17" Width="17" HorizontalAlignment="Center" />
+                                </Border>
+
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="back" Property="Background" Value="#303033" />
+                                        <Setter TargetName="icon" Property="Fill" Value="#BF0002" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
+        <!--<Border Grid.Row="1" Background="Black">
+                <StackPanel Orientation="Horizontal">
+                    <Path Fill="Red" Data="M399.179,67.285L324.385,67.318L324.356,0L166.214,0.066,166.243,67.384,91.441,67.417,91.465,130.331,399.204,130.365,399.179,67.285z M198.297,32.128,292.327,32.087,292.344,67.349,198.314,67.39,198.297,32.128z M91.465,490.646,399.204,490.646,399.204,146.359,91.465,146.359,91.465,490.646z M317.489,193.372,333.517,193.372,333.517,443.631,317.489,443.631,317.489,193.372z M237.349,193.372,253.377,193.372,253.377,443.631,237.349,443.631,237.349,193.372z M157.208,193.372,173.236,193.372,173.236,443.631,157.208,443.631,157.208,193.372z" Height="19" Stretch="Fill" Width="15"/>
+                </StackPanel>
+        </Border>-->
 
 
 
