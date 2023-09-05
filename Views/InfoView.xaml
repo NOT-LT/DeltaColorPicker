@@ -31,7 +31,7 @@
                Opacity="0.8"
                TextAlignment="Center"/>
 
-                <TextBlock Text="Version 2.0.0"
+                <TextBlock Text="Version 1.5.0"
                Margin="0,0,0,15"
                FontSize="16"
                Foreground="#FFFFFF"
@@ -52,7 +52,8 @@
                FontSize="15"
                Foreground="#FFFFFF"
                Opacity="0.8">
-        Delta ColorPicker is an open-source project developed by Taha Aljamri.
+        Delta ColorPicker is an open-source project developed by Taha Aljamri. It allows you to capture colors from your screen
+                    <LineBreak/>
                     <LineBreak/>
                     View the application's source code on GitHub.
                 </TextBlock>
