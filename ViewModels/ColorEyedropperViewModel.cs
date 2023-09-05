@@ -22,7 +22,6 @@ using DeltaColorsPicker.DataStore;
 using System.Drawing.Imaging;
 using System.Windows.Ink;
 using System.Windows.Media.Media3D;
-using PixelFormat = System.Drawing.Imaging.PixelFormat;
 using System.IO;
 using Microsoft.VisualBasic;
 

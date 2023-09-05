@@ -2,18 +2,20 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <StartupObject>DeltaColorsPicker.App</StartupObject>
     <AssemblyName>DeltaColorsPicker</AssemblyName>
     <RootNamespace>DeltaColorsPicker</RootNamespace>
-    <ApplicationIcon>DeltaColorPickerLogo.ico</ApplicationIcon>
     <PublishSingleFile Condition="'$(Configuration)' == 'Release'">true</PublishSingleFile>
     <SelfContained>true</SelfContained>
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <SupportedOSPlatformVersion>8.0</SupportedOSPlatformVersion>
+    <UseWindowsForms>False</UseWindowsForms>
+    <PlatformTarget>x64</PlatformTarget>
+    <PackageTags>color, picker, colorpicker, colorspicker, delta, deltacolorpicker</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
@@ -54,10 +56,6 @@
     <Resource Include="Assets\Images\whatsapp.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include=".github\workflows\DeltaColorsPicker.yml" />
   </ItemGroup>
 
   <ItemGroup>

@@ -7,6 +7,7 @@ using System.Configuration;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
@@ -19,15 +20,19 @@ namespace DeltaColorsPicker
     public partial class App : Application
     {
 
-        protected override async void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
+
 
             base.OnStartup(e);
 
             // Load the application resources
+
+
+
             InitializeComponent();
 
-            await Task.Run(() =>
+            Task.Run(() =>
             {
                 try
                 {
@@ -48,18 +53,28 @@ namespace DeltaColorsPicker
                 catch (Exception) { }
 
             });
+            // Load your resources here
+            // For example, you can load assemblies, initialize components, etc.
 
-
-            //var colorsHistoryViewModel = new ColorsHistoryViewModel();
-            //colorsHistoryViewModel.Update();
-            MainWindow window = new MainWindow();
-            //window.DataContext = new ColorsHistoryViewModel();
-            window.Show();
+            // Once the resources are loaded, create and show the main window on the UI thread
+            Dispatcher.Invoke(() =>
+            {
+                MainWindow = new MainWindow();
+                MainWindow.Show();
+            });
 
         }
 
+        private void LoadResources()
+        {
+          
+        }
+
+
         protected override void OnExit(ExitEventArgs e)
         {
+
+
             try
             {
                 System.IO.File.WriteAllText("AllSavedColors.txt", ColorsDB.GetAll_Hex_RGB().ToString());
