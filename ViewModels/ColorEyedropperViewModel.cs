@@ -1,44 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
-using System.Windows;
-using System.Windows.Media.Imaging;
 using System.Drawing;
-using CommunityToolkit.Mvvm.ComponentModel;
-using DeltaColorsPicker.Models;
-using System.Threading;
-using System.Windows.Threading;
-using System.Timers;
-using CommunityToolkit.Mvvm.Input;
-using System.Windows.Input;
-using System.Text.Json.Serialization.Metadata;
-using System.ComponentModel;
-using DeltaColorsPicker.DataStore;
 using System.Drawing.Imaging;
-using System.Windows.Ink;
-using System.Windows.Media.Media3D;
 using System.IO;
-using Microsoft.VisualBasic;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using System.Windows.Threading;
+using CommunityToolkit.Mvvm.ComponentModel;
+using DeltaColorsPicker.DataStore;
+using DeltaColorsPicker.Models;
 
 namespace DeltaColorsPicker.ViewModels
 {
-    class ColorEyedropperViewModel : ObservableObject
+    class ColorEyedropperViewModel : ObservableObject, IDisposable
     {
-
-        //public ICommand KeyDownCommand { get { return new RelayCommand(KeyDownExecute); } } No need for it after the update since we use global hotkeys
-        //private void KeyDownExecute()
-        //{
-        //    //if (Keyboard.IsKeyDown(Key.X) && (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)))
-        //    //{
-        //    //    SelectedColor = new SavedColor(SavedColor.Color, SavedColor?.RGB, SavedColor?.HEX, DateTime.Now);
-        //    //    ColorsDB.AddColor_Select(SelectedColor);
-        //    //}
-        //}\
 
         public async void KeyboardHook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
@@ -55,52 +32,40 @@ namespace DeltaColorsPicker.ViewModels
                         await Task.Delay(750);
                         CaptureBorderBackground = System.Windows.Media.Color.FromRgb(99, 99, 98);
                     }
-                  
+
                 }
-                catch { }                     
+                catch { }
 
             }
         }
-        
-
 
         private SavedColor? savedColor;
         public SavedColor? SavedColor
         {
             get { return savedColor; }
-            set { savedColor = value; OnPropertyChanged(nameof(SavedColor)); }
+            set { SetProperty(ref savedColor, value); }
         }
 
         private SavedColor? selectedColor;
         public SavedColor? SelectedColor
         {
             get { return selectedColor; }
-            set { selectedColor = value; OnPropertyChanged(nameof(SelectedColor));
-            }
+            set { SetProperty(ref selectedColor, value); }
         }
 
         private BitmapImage? bitmapImage;
         public BitmapImage? BitmapImage
         {
             get { return bitmapImage; }
-            set { bitmapImage = value; OnPropertyChanged(nameof(BitmapImage)); }
+            set { SetProperty(ref bitmapImage, value); }
         }
-
-        private MemoryStream? memoryStream = new MemoryStream();
 
         private System.Windows.Media.Color captureBorderBackground;
-        public System.Windows.Media.Color CaptureBorderBackground 
-        { 
-            get { return captureBorderBackground;  }
-            set { captureBorderBackground = value; OnPropertyChanged(nameof(CaptureBorderBackground)); } 
+        public System.Windows.Media.Color CaptureBorderBackground
+        {
+            get { return captureBorderBackground; }
+            set { SetProperty(ref captureBorderBackground, value); }
         }
-
-        private DispatcherTimer timer;
-        //private Graphics? graphics;
-        //   private Bitmap bitmap;
-        private System.Drawing.Color color;
-
-        Win32Point w32Mouse = new Win32Point();
 
         private Win32Point w32Mouse_;
         public Win32Point W32Mouse_
@@ -109,7 +74,9 @@ namespace DeltaColorsPicker.ViewModels
             set { w32Mouse_ = value; OnPropertyChanged(nameof(W32Mouse_)); }
         }
 
-
+        private DispatcherTimer timer;
+        private System.Drawing.Color color;
+        private Win32Point w32Mouse = new Win32Point();
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -118,82 +85,77 @@ namespace DeltaColorsPicker.ViewModels
         [StructLayout(LayoutKind.Sequential)]
         internal struct Win32Point
         {
-            public Int32 X;
-            public Int32 Y;
-        };
+            public int X;
+            public int Y;
+        }
 
         public ColorEyedropperViewModel()
         {
             SavedColor = new SavedColor(ColorsDB.CurrentColorSelect.Color, ColorsDB.CurrentColorSelect.RGB, ColorsDB.CurrentColorSelect.HEX);
             SelectedColor = new SavedColor(ColorsDB.CurrentColorSelect.Color, ColorsDB.CurrentColorSelect.RGB, ColorsDB.CurrentColorSelect.HEX);
 
-
             CaptureBorderBackground = System.Windows.Media.Color.FromRgb(99, 99, 98);
 
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(0.03);
-            timer.Tick += (_, _) => GetHoverColor();
+            timer.Interval = TimeSpan.FromSeconds(0.048);
+            timer.Tick += Timer_Tick;
             timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            Task.Run(() => GetHoverColor());
         }
 
         public void GetHoverColor()
         {
             try
             {
-                
                 GetCursorPos(ref w32Mouse);
                 W32Mouse_ = new Win32Point() { X = w32Mouse.X, Y = w32Mouse.Y };
 
-                using (Bitmap? bp = new Bitmap(60, 60))
+                using (var bp = new Bitmap(45, 45))
                 {
- 
-                        Graphics.FromImage(bp).CopyFromScreen(new System.Drawing.Point(w32Mouse.X - 60 / 2, w32Mouse.Y - 60 / 2), new System.Drawing.Point(0, 0), bp.Size, CopyPixelOperation.SourceCopy);
+                    using (var graphics = Graphics.FromImage(bp))
+                    {
+                        graphics.CopyFromScreen(new System.Drawing.Point(w32Mouse.X - 45 / 2, w32Mouse.Y - 45 / 2), new System.Drawing.Point(0, 0), bp.Size, CopyPixelOperation.SourceCopy);
+                    }
 
-                        //graphics.CopyFromScreen(
-                        //    new System.Drawing.Point(w32Mouse.X - 60 / 2, w32Mouse.Y - 60 / 2),
-                        //    new System.Drawing.Point(0, 0),
-                        //    new System.Drawing.Size(60, 60));
-                        color = bp.GetPixel(60 / 2, 60 / 2);
-                        SavedColor = new SavedColor(System.Windows.Media.Color.FromArgb(color.A, color.R, color.G, color.B), $"({color.R},{color.G},{color.B})", $"#{color.R:X2}{color.G:X2}{color.B:X2}");
-                        BitmapImage = BitmapToBitmapImage(bp);
+                    color = bp.GetPixel(45 / 2, 45 / 2);
+                    SavedColor = new SavedColor(System.Windows.Media.Color.FromArgb(color.A, color.R, color.G, color.B), $"({color.R},{color.G},{color.B})", $"#{color.R:X2}{color.G:X2}{color.B:X2}");
+                    BitmapImage = BitmapToBitmapImage(bp);
 
-
-                        Dispose();
-                    
-                }        
-                
-                
+                }
+                Dispose();
             }
-            catch (Exception) { }
-
+            catch (Exception)
+            {
+                // Handle exceptions appropriately
+            }
         }
 
         private BitmapImage BitmapToBitmapImage(Bitmap bitmap)
         {
-            // Clear the MemoryStream object before use
-            memoryStream?.SetLength(0);
+            using (var memoryStream = new MemoryStream())
+            {
+                bitmap.Save(memoryStream, ImageFormat.Png);
+                memoryStream.Position = 0;
 
-            // Save the Bitmap object to the MemoryStream object
-            bitmap.Save(memoryStream, ImageFormat.Png);
-            memoryStream.Position = 0;
+                var bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.StreamSource = memoryStream;
+                bitmapImage.EndInit();
+                bitmapImage.Freeze();
 
-
-            // Create a new BitmapImage from the MemoryStream
-            BitmapImage bitmapImage = new BitmapImage();
-            bitmapImage.BeginInit();
-            //bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-            bitmapImage.StreamSource = memoryStream;
-            bitmapImage.EndInit();
-            bitmapImage.Freeze();
-            return bitmapImage;
+                return bitmapImage;
+            }
         }
 
         public void Dispose()
         {
             timer.Tick -= (_, _) => GetHoverColor();
-            memoryStream?.Flush();
-            GC.Collect();
+            //GC.Collect();
         }
-
     }
 }

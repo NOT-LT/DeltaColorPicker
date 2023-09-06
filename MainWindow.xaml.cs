@@ -2,22 +2,7 @@
 using DeltaColorsPicker.ViewModels;
 using DeltaColorsPicker.Views;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 
 namespace DeltaColorsPicker
 {
@@ -26,41 +11,30 @@ namespace DeltaColorsPicker
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Lazy<ColorEyedropperView> colorEyedropperView = new Lazy<ColorEyedropperView>(() => new ColorEyedropperView());
+        private Lazy<ColorPickerView> colorPickerView = new Lazy<ColorPickerView>(() => new ColorPickerView());
+        private Lazy<ColorsHistoryView> colorsHistoryView = new Lazy<ColorsHistoryView>(() => new ColorsHistoryView());
+        private Lazy<ColorsHistoryViewUpdated> colorsHistoryViewUpdated = new Lazy<ColorsHistoryViewUpdated>(() => new ColorsHistoryViewUpdated());
+        private Lazy<InfoView> infoView = new Lazy<InfoView>(() => new InfoView());
 
-        ColorEyedropperView colorEyedropperView;
-        ColorPickerView colorPickerView;
-        ColorsHistoryView colorsHistoryView;
-        ColorsHistoryViewUpdated colorsHistoryViewUpdated;
+        private Lazy<ColorEyedropperViewModel> colorEyedropperViewModel = new Lazy<ColorEyedropperViewModel>(() => new ColorEyedropperViewModel());
+        private Lazy<ColorPickerViewModel> colorPickerViewModel = new Lazy<ColorPickerViewModel>(() => new ColorPickerViewModel());
+        private Lazy<ColorsHistoryViewModel> colorsHistoryViewModel = new Lazy<ColorsHistoryViewModel>(() => new ColorsHistoryViewModel());
 
-        ColorEyedropperViewModel colorEyedropperViewModel;
-        ColorPickerViewModel colorPickerViewModel;
-        ColorsHistoryViewModel colorsHistoryViewModel;
-
-
-        LowLevelKeyboardHook keyboardHook;
+        private LowLevelKeyboardHook keyboardHook;
 
         public MainWindow()
         {
-      
-
-            colorEyedropperViewModel = new ColorEyedropperViewModel(); colorEyedropperView = new ColorEyedropperView();
-            colorEyedropperView.DataContext = colorEyedropperViewModel;
-            colorPickerViewModel = new ColorPickerViewModel(); colorPickerView = new ColorPickerView();
-            colorPickerView.DataContext = colorPickerViewModel;
-            colorsHistoryViewModel = new ColorsHistoryViewModel(); colorsHistoryView = new ColorsHistoryView();
-            colorsHistoryView.DataContext = colorsHistoryViewModel;
-            colorsHistoryViewUpdated = new ColorsHistoryViewUpdated();
-            colorsHistoryViewUpdated.DataContext = colorsHistoryViewModel;
-
             InitializeComponent();
-            ColorEyedropperPageButton.IsSelected = true;
+            ColorEyedropperPageButton.IsSelected = true;       
 
             Closing += MainWindow_Closing;
+            colorsHistoryViewUpdated.Value.DataContext = colorsHistoryViewModel.Value;
 
             keyboardHook = new LowLevelKeyboardHook();
-            keyboardHook.KeyPressed += colorEyedropperViewModel.KeyboardHook_KeyPressed;
+            WeakEventManager<LowLevelKeyboardHook, KeyPressedEventArgs>.AddHandler(keyboardHook, "KeyPressed", colorEyedropperViewModel.Value.KeyboardHook_KeyPressed);
             keyboardHook.Install();
-            SideFrame.Navigate(colorsHistoryViewUpdated);
+            SideFrame.Navigate(colorsHistoryViewUpdated.Value);
         }
 
         private void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
@@ -68,39 +42,28 @@ namespace DeltaColorsPicker
             keyboardHook?.Uninstall();
         }
 
-
         private void ColorEyedropperPageButton_Selected(object sender, RoutedEventArgs e)
         {
-            //var btn = (NavigationButton)sender;
-
-            NavFrame.Navigate(colorEyedropperView);
+            colorEyedropperView.Value.DataContext = colorEyedropperViewModel.Value;
+            NavFrame.Navigate(colorEyedropperView.Value);
         }
 
         private void ColorPickerPageButton_Selected(object sender, RoutedEventArgs e)
         {
-            //var btn = (NavigationButton)sender;
-            NavFrame.Navigate(colorPickerView);
+            colorPickerView.Value.DataContext = colorPickerViewModel.Value;
+            NavFrame.Navigate(colorPickerView.Value);
         }
-
 
         private void ColorsHistoryButton_Selected(object sender, RoutedEventArgs e)
         {
-            //var btn = (NavigationButton)sender;
-            //colorsHistoryViewModel = new ColorsHistoryViewModel();
-            //colorsHistoryView = new ColorsHistoryView();
-            //colorsHistoryView.DataContext = colorsHistoryViewModel;
-            //colorsHistoryViewModel.Update();
-            NavFrame.Navigate(colorsHistoryView);
-
-           
+            colorsHistoryView.Value.DataContext = colorsHistoryViewModel.Value;
+            NavFrame.Navigate(colorsHistoryView.Value);
         }
 
         private void InfoPageHButton_Selected(object sender, RoutedEventArgs e)
         {
-            var btn = (NavigationButton)sender;
-            NavFrame.Navigate(btn?.NavigationLink);
+            colorsHistoryViewUpdated.Value.DataContext = colorsHistoryViewModel.Value;
+            NavFrame.Navigate(infoView.Value);
         }
-
     }
-
 }

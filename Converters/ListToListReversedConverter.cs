@@ -15,14 +15,23 @@ namespace DeltaColorsPicker.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            ObservableCollection<SavedColor> AllColorsList = (ObservableCollection<SavedColor>)value;
-            return AllColorsList.Reverse();
+            if (value is ObservableCollection<SavedColor>)
+            {
+                ObservableCollection<SavedColor> AllColorsList = (ObservableCollection<SavedColor>)value;
+                return AllColorsList.Reverse();
+            }
+            return new object();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            ObservableCollection<SavedColor> AllColorsList = (ObservableCollection<SavedColor>)value;
-            return AllColorsList.Reverse();
+            if (value is ObservableCollection<SavedColor>)
+            {
+                ObservableCollection<SavedColor> AllColorsList = (ObservableCollection<SavedColor>)value;
+                return AllColorsList.Reverse();
+            }
+            return new object();
+
         }
     }
 

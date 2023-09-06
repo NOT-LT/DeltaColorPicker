@@ -14,7 +14,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace DeltaColorsPicker.ViewModels
 {
-    public class ColorsHistoryViewModel : ObservableObject
+    public class ColorsHistoryViewModel : ObservableObject, IDisposable
     {
 
         public RelayCommand ClearColorsCommand { get; set; }
@@ -22,21 +22,22 @@ namespace DeltaColorsPicker.ViewModels
 
         private ObservableCollection<SavedColor> allSavedColors;
 
-		public ObservableCollection<SavedColor> AllSavedColors
+        public ObservableCollection<SavedColor> AllSavedColors
         {
-			get { return allSavedColors; }
-			set { 
-				allSavedColors = value;
-				OnPropertyChanged(nameof(AllSavedColors));
+            get { return allSavedColors; }
+            set
+            {
+                allSavedColors = value;
+                OnPropertyChanged(nameof(AllSavedColors));
             }
         }
 
-		public ColorsHistoryViewModel()
-		{
+        public ColorsHistoryViewModel()
+        {
 
-			AllSavedColors = new ObservableCollection<SavedColor>();
-			Task.Run (() => { ColorsDB.GetAll().ForEach(color => AllSavedColors.Add(color)); } );
-			ColorsDB.ColorsListChanged += ColorsDB_NewColorAdded;
+            AllSavedColors = new ObservableCollection<SavedColor>();
+            Task.Run(() => { ColorsDB.GetAll().ForEach(color => AllSavedColors.Add(color)); });
+            ColorsDB.ColorsListChanged += ColorsDB_NewColorAdded;
 
             ClearColorsCommand = new RelayCommand(() =>
             {
@@ -47,25 +48,23 @@ namespace DeltaColorsPicker.ViewModels
                     OnPropertyChanged(nameof(AllSavedColors));
                 }
             });
-		}
-
-
-  //      public void Update()
-		//{
-  //          AllSavedColors = new ObservableCollection<SavedColor>();
-  //          ColorsDB.GetAll().ForEach(color => AllSavedColors.Add(color));
-  //      }
+        }
 
         private void ColorsDB_NewColorAdded()
-		{
-        
+        {
+
             if (ColorsDB.GetAll()?.Count > 0)
             {
                 AllSavedColors.Add(ColorsDB.GetAll()?.Last());
                 OnPropertyChanged(nameof(AllSavedColors));
             }
-            
-            
+
+
+        }
+
+        public void Dispose()
+        {
+            ColorsDB.ColorsListChanged -= ColorsDB_NewColorAdded;
         }
 
     }

@@ -44,7 +44,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.54*"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
@@ -103,9 +103,9 @@
 
                     <Grid x:Name="mGrid">
                         <Image x:Name="Image"
-           Source="{Binding BitmapImage}"
-           Focusable="True"
-           Stretch="UniformToFill" />
+                           Source="{Binding BitmapImage}"
+                           Focusable="True"
+                           Stretch="UniformToFill" />
                         <Rectangle Stroke="#940000" StrokeThickness="2" Width="1" Height="{Binding ActualHeight, ElementName=Image}"/>
                         <Rectangle Stroke="#940000" StrokeThickness="2" Height="1" Width="{Binding ActualWidth, ElementName=Image}"/>
                     </Grid>
