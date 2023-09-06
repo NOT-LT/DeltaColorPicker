@@ -77,16 +77,8 @@ namespace DeltaColorsPicker
 
         }
 
-        private void LoadResources()
-        {
-          
-        }
-
-
         protected override void OnExit(ExitEventArgs e)
         {
-
-
             try
             {
                 System.IO.File.WriteAllText("AllSavedColors.txt", ColorsDB.GetAll_Hex_RGB().ToString());

@@ -69,11 +69,6 @@ namespace DeltaColorsPicker
         }
 
 
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-        }
-
         private void ColorEyedropperPageButton_Selected(object sender, RoutedEventArgs e)
         {
             //var btn = (NavigationButton)sender;

@@ -16,7 +16,7 @@
         <StackPanel>
 
 
-            <Image Source="../Assets/Images/DeltaColorPickerPng.png" Height="120" />
+            <Image Source="../Assets/Images/DeltaColorPickerPng.png" Height="120" Margin="0"/>
 
 
             <TextBlock Text="Delta Color Picker"
@@ -35,7 +35,7 @@
 
                 <TextBlock Text="ABOUT"
                FontWeight="Medium"
-               Margin="5,0,0,3"
+               Margin="5,0,0,2"
                FontSize="18"
                Foreground="#FFFFFF"
                Opacity="0.8"
@@ -47,8 +47,8 @@
                FontSize="15"
                Foreground="#FFFFFF"
                Opacity="0.8">
-        Delta ColorPicker is an open-source project developed by Taha Aljamri. It allows you to capture colors from your screen.
-                    View the application's source code on GitHub.
+        Delta ColorPicker is an open-source project developed by Taha Aljamri. It allows you to capture any color from your screen easily.
+                    
                 </TextBlock>
 
 
