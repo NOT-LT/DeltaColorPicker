@@ -47,12 +47,15 @@ namespace DeltaColorsPicker.ViewModels
             {
                 try
                 {
-                    SelectedColor = new SavedColor(SavedColor.Color, SavedColor.RGB, SavedColor.HEX);
-                    ColorsDB.AddColor_Select(SelectedColor);
-                    Clipboard.SetText(SelectedColor.HEX);
-                    CaptureBorderBackground = System.Windows.Media.Color.FromRgb(58, 166, 56);
-                    await Task.Delay(750);
-                    CaptureBorderBackground = System.Windows.Media.Color.FromRgb(99, 99, 98);
+                    using (SelectedColor = new SavedColor(SavedColor.Color, SavedColor.RGB, SavedColor.HEX))
+                    {
+                        ColorsDB.AddColor_Select(SelectedColor);
+                        Clipboard.SetText(SelectedColor.HEX);
+                        CaptureBorderBackground = System.Windows.Media.Color.FromRgb(58, 166, 56);
+                        await Task.Delay(750);
+                        CaptureBorderBackground = System.Windows.Media.Color.FromRgb(99, 99, 98);
+                    }
+                  
                 }
                 catch { }                     
 

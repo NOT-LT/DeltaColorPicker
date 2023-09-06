@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DeltaColorsPicker.Models
 {
-    public class SavedColor
+    public class SavedColor : IDisposable
     {
         public System.Windows.Media.Color Color { get; set; }
         public string RGB { get; set; }
@@ -20,6 +15,8 @@ namespace DeltaColorsPicker.Models
             HEX = _HEX;
         }
 
-
+        public void Dispose()
+        {
+        }
     }
 }

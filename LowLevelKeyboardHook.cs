@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace DeltaColorsPicker
@@ -16,21 +17,32 @@ namespace DeltaColorsPicker
 
         private IntPtr hookId = IntPtr.Zero;
         private HookProc hookCallback;
+        private bool isInstalled = false;
 
         public event EventHandler<KeyPressedEventArgs> KeyPressed;
 
         public void Install()
         {
+            if (isInstalled)
+                return;
+
             hookCallback = KeyboardHookCallback;
             using (ProcessModule module = Process.GetCurrentProcess().MainModule)
             {
                 hookId = SetWindowsHookEx(WH_KEYBOARD_LL, hookCallback, GetModuleHandle(module.ModuleName), 0);
             }
+
+            isInstalled = true;
         }
 
         public void Uninstall()
         {
+            if (!isInstalled)
+                return;
+
             UnhookWindowsHookEx(hookId);
+
+            isInstalled = false;
         }
 
         private IntPtr KeyboardHookCallback(int nCode, IntPtr wParam, IntPtr lParam)

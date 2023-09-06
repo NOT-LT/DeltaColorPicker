@@ -5,19 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DeltaColorsPicker"
         xmlns:Converters="clr-namespace:DeltaColorsPicker.Converters"
-        xmlns:VMs="clr-namespace:DeltaColorsPicker.ViewModels" xmlns:Views="clr-namespace:DeltaColorsPicker.Views"
+        xmlns:Views="clr-namespace:DeltaColorsPicker.Views"
         mc:Ignorable="d"
         Title="Delta ColorPicker" Height="450" Width="375" SnapsToDevicePixels="True"
-        MinWidth="360" MinHeight="450" >
+        MinWidth="360" MinHeight="450">
 
-    <Window.DataContext>
-        <VMs:ColorsHistoryViewModel/>
-    </Window.DataContext>
-    
     <Window.Resources>
 
 
-        <VMs:ColorsHistoryViewModel x:Key="ColorsHistoryViewModel"/>
         <Style  TargetType="{x:Type ScrollViewer}">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
             <Setter Property="Template">

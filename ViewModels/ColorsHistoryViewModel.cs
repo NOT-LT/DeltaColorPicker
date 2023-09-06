@@ -33,8 +33,9 @@ namespace DeltaColorsPicker.ViewModels
 
 		public ColorsHistoryViewModel()
 		{
+
 			AllSavedColors = new ObservableCollection<SavedColor>();
-			ColorsDB.GetAll().ForEach(color => AllSavedColors.Add(color));
+			Task.Run (() => { ColorsDB.GetAll().ForEach(color => AllSavedColors.Add(color)); } );
 			ColorsDB.ColorsListChanged += ColorsDB_NewColorAdded;
 
             ClearColorsCommand = new RelayCommand(() =>
@@ -57,11 +58,13 @@ namespace DeltaColorsPicker.ViewModels
 
         private void ColorsDB_NewColorAdded()
 		{
-            ColorsDB.GetAll()?.ForEach(color =>
+        
+            if (ColorsDB.GetAll()?.Count > 0)
             {
-                AllSavedColors.Add(color);
+                AllSavedColors.Add(ColorsDB.GetAll()?.Last());
                 OnPropertyChanged(nameof(AllSavedColors));
-            });
+            }
+            
             
         }
 

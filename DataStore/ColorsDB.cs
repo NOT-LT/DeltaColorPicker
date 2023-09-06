@@ -18,15 +18,15 @@ namespace DeltaColorsPicker.DataStore
         public static SavedColor CurrentColorSelect = new SavedColor(Color.FromRgb(0, 0, 0), "", "");
 
         public static void AddColor_Set(in SavedColor savedColor)
-        { 
-            CurrentColorSet = savedColor;
-            AllColors.Add(CurrentColorSet);
+        {
+            //CurrentColorSet = savedColor;
+            AllColors.Add(savedColor);
             ColorsListChanged?.Invoke();
         }
         public static void AddColor_Select(in SavedColor savedColor)
         {
             CurrentColorSelect = savedColor;
-            AllColors.Add(CurrentColorSelect);
+            AllColors.Add(new SavedColor(savedColor.Color, savedColor.RGB, savedColor.HEX));
             ColorsListChanged?.Invoke();
         }
 

@@ -37,7 +37,7 @@ namespace DeltaColorsPicker
         ColorsHistoryViewModel colorsHistoryViewModel;
 
 
-        private LowLevelKeyboardHook keyboardHook;
+        LowLevelKeyboardHook keyboardHook;
 
         public MainWindow()
         {
@@ -49,22 +49,14 @@ namespace DeltaColorsPicker
             colorPickerView.DataContext = colorPickerViewModel;
             colorsHistoryViewModel = new ColorsHistoryViewModel(); colorsHistoryView = new ColorsHistoryView();
             colorsHistoryView.DataContext = colorsHistoryViewModel;
-           colorsHistoryViewUpdated = new ColorsHistoryViewUpdated();
+            colorsHistoryViewUpdated = new ColorsHistoryViewUpdated();
             colorsHistoryViewUpdated.DataContext = colorsHistoryViewModel;
 
             InitializeComponent();
             ColorEyedropperPageButton.IsSelected = true;
 
-            Loaded += MainWindow_Loaded;
             Closing += MainWindow_Closing;
 
-
-            //this.DataContext = colorsHistoryViewModel;
-            //colorsHistoryViewModel.Update();
-        }
-
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
             keyboardHook = new LowLevelKeyboardHook();
             keyboardHook.KeyPressed += colorEyedropperViewModel.KeyboardHook_KeyPressed;
             keyboardHook.Install();
@@ -114,10 +106,6 @@ namespace DeltaColorsPicker
             NavFrame.Navigate(btn?.NavigationLink);
         }
 
-        private void ClearColorsButton_Selected(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 
 }
