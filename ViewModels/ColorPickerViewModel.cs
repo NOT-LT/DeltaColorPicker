@@ -1,5 +1,5 @@
-﻿using DeltaColorsPicker.DataStore;
-using DeltaColorsPicker.Models;
+﻿using DeltaColorPicker.DataStore;
+using DeltaColorPicker.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -12,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Diagnostics;
 
-namespace DeltaColorsPicker.ViewModels
+namespace DeltaColorPicker.ViewModels
 {
     class ColorPickerViewModel : ObservableObject
     {

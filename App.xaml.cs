@@ -1,6 +1,6 @@
-﻿using DeltaColorsPicker.DataStore;
-using DeltaColorsPicker.Models;
-using DeltaColorsPicker.ViewModels;
+﻿using DeltaColorPicker.DataStore;
+using DeltaColorPicker.Models;
+using DeltaColorPicker.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
-namespace DeltaColorsPicker
+namespace DeltaColorPicker
 {
     /// <summary>
     /// Interaction logic for App.xaml

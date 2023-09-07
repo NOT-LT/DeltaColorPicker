@@ -1,4 +1,4 @@
-﻿using DeltaColorsPicker.ViewModels;
+﻿using DeltaColorPicker.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DeltaColorsPicker.Views
+namespace DeltaColorPicker.Views
 {
 
     public partial class ColorPickerView : Page

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace DeltaColorsPicker.Converters
+namespace DeltaColorPicker.Converters
 {
     class ColorToRGBConverter : IValueConverter
     {

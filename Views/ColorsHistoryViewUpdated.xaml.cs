@@ -1,4 +1,4 @@
-﻿using DeltaColorsPicker.Converters;
+﻿using DeltaColorPicker.Converters;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,7 +18,7 @@ using Brushes = System.Windows.Media.Brushes;
 using Color = System.Windows.Media.Color;
 using Path = System.Windows.Shapes.Path;
 
-namespace DeltaColorsPicker.Views
+namespace DeltaColorPicker.Views
 {
     /// <summary>
     /// Interaction logic for PointerColorView.xaml

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DeltaColorsPicker.Models
+namespace DeltaColorPicker.Models
 {
     public class SavedColor : IDisposable
     {

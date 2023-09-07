@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DeltaColorsPicker
+namespace DeltaColorPicker
 {
 
     public class NavigationButton : ListBoxItem

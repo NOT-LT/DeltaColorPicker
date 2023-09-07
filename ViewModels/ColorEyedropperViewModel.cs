@@ -9,10 +9,10 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
-using DeltaColorsPicker.DataStore;
-using DeltaColorsPicker.Models;
+using DeltaColorPicker.DataStore;
+using DeltaColorPicker.Models;
 
-namespace DeltaColorsPicker.ViewModels
+namespace DeltaColorPicker.ViewModels
 {
     class ColorEyedropperViewModel : ObservableObject, IDisposable
     {

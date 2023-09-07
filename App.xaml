@@ -1,8 +1,8 @@
-﻿<Application x:Class="DeltaColorsPicker.App"
+﻿<Application x:Class="DeltaColorPicker.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:DeltaColorsPicker"
-             xmlns:VMs="clr-namespace:DeltaColorsPicker.ViewModels"
+             xmlns:local="clr-namespace:DeltaColorPicker"
+             xmlns:VMs="clr-namespace:DeltaColorPicker.ViewModels"
              >
 
     <Application.Resources>

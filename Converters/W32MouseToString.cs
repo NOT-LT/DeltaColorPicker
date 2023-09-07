@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using static DeltaColorsPicker.ViewModels.ColorEyedropperViewModel;
+using static DeltaColorPicker.ViewModels.ColorEyedropperViewModel;
 
-namespace DeltaColorsPicker.Converters
+namespace DeltaColorPicker.Converters
 {
     class W32MouseToString : IValueConverter
     {

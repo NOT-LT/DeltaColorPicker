@@ -1,5 +1,5 @@
-﻿using DeltaColorsPicker.DataStore;
-using DeltaColorsPicker.Models;
+﻿using DeltaColorPicker.DataStore;
+using DeltaColorPicker.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.IO;
 using System.Windows.Input;
 using CommunityToolkit.Mvvm.Input;
 
-namespace DeltaColorsPicker.ViewModels
+namespace DeltaColorPicker.ViewModels
 {
     public class ColorsHistoryViewModel : ObservableObject, IDisposable
     {

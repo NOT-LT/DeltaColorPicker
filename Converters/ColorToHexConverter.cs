@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace DeltaColorsPicker.Converters
+namespace DeltaColorPicker.Converters
 {
     class ColorToHexConverter : IValueConverter
     {

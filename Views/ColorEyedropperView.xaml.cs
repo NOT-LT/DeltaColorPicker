@@ -1,4 +1,4 @@
-﻿using DeltaColorsPicker.ViewModels;
+﻿using DeltaColorPicker.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -20,7 +20,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace DeltaColorsPicker.Views
+namespace DeltaColorPicker.Views
 {
 
     public partial class ColorEyedropperView : Page

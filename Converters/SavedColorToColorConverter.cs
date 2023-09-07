@@ -1,4 +1,4 @@
-﻿using DeltaColorsPicker.Models;
+﻿using DeltaColorPicker.Models;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,7 +10,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using ColorConverter = System.Windows.Media.ColorConverter;
 
-namespace DeltaColorsPicker.Converters
+namespace DeltaColorPicker.Converters
 {
     class SavedColorToColorConverter : IValueConverter
     {
