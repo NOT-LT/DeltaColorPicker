@@ -18,7 +18,7 @@ To install DeltaColorPicker, simply follow these steps:
 ## Usage
 To use DeltaColorPicker, follow these simple steps:
 1. Click on the "Capture Color" icon button to capture the color of any pixel on your screen.
-2. Hover with your mouse at any pixel at your screen and clock "ALT + X" to capture the color and dave it.
+2. Hover with your mouse at any pixel at your screen and click "ALT + X" to capture the color and dave it.
 3. You can Use the custom colorpicker to adjust the color.
 
 
