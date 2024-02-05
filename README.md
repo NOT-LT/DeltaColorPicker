@@ -20,10 +20,6 @@ To use DeltaColorPicker, follow these simple steps:
 1. Click on the "Capture Color" icon button to capture the color of any pixel on your screen.
 2. Hover with your mouse at any pixel at your screen and clock "ALT + X" to capture the color and dave it.
 3. You can Use the custom colorpicker to adjust the color.
-#### Note: You must focus on the app to capture the color using the hotkeys ALT + X
 
 
 ![DeltaColorPicker Screenshot](How-To-Use.gif)
-
-## Contributing
-Contributions to DeltaColorPicker are always welcome! If you find a bug, have a feature request, or would like to contribute code, please open an issue or submit a pull request on GitHub.
